@@ -7,7 +7,7 @@ package econometrica;
 
 /**
  *
- * @author vborotis
+ * @author stratos-christos-vasilis
  */
 public class Econometrica {
 

@@ -18,6 +18,7 @@ public class Econometrica {
         // TODO code application logic here
         // lalakis test comment
         System.out.println("Hello Scrum Team");
+        System.out.println("Trello list completed");
     }
     
 }

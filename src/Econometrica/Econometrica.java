@@ -9,6 +9,7 @@ package Econometrica;
  *
  * @author stratos-christos-vasilis v3
  */
+
 public class Econometrica {
 
     /**

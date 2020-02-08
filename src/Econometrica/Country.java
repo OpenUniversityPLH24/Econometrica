@@ -5,6 +5,11 @@
  */
 package Econometrica;
 
+/**
+ *
+ * @author stratos-christos-vasilis v3
+ */
+
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -18,10 +23,6 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- * test2
- * @author Χρήστος Ντάφος
- */
 @Entity
 @Table(name = "COUNTRY")
 @XmlRootElement

@@ -20,6 +20,7 @@ public class Econometrica {
         // lalakis test comment
         System.out.println("Hello Scrum Team");
         System.out.println("Trello list completed");
+        System.out.println("Pull Test");
     }
     
 }

@@ -7,7 +7,7 @@ package Econometrica;
 
 /**
  *
- * @author stratos-christos-vasilis v2
+ * @author stratos-christos-vasilis v3
  */
 public class Econometrica {
 
@@ -17,6 +17,7 @@ public class Econometrica {
     public static void main(String[] args) {
         // TODO code application logic here
         // lalakis test comment
+        System.out.println("Hello Scrum Team");
     }
     
 }

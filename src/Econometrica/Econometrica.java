@@ -7,7 +7,9 @@ package Econometrica;
 
 /**
  *
- * @author stratos-christos-vasilis v3
+ * @author Μπορότης Βασίλειος
+ * @author Ντουλάκης Ευστράτιος
+ * @author Ντάφος Χρήστος
  */
 
 public class Econometrica {
@@ -18,9 +20,7 @@ public class Econometrica {
     public static void main(String[] args) {
         // TODO code application logic here
         // lalakis test comment
-        System.out.println("Hello Scrum Team");
-        System.out.println("Trello list completed");
-        System.out.println("Pull Test");
+
     }
     
 }

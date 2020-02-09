@@ -7,7 +7,9 @@ package Econometrica;
 
 /**
  *
- * @author stratos-christos-vasilis v3
+ * @author Μπορότης Βασίλειος
+ * @author Ντουλάκης Ευστράτιος
+ * @author Ντάφος Χρήστος
  */
 
 import java.io.Serializable;

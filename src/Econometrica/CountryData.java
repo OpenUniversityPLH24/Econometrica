@@ -5,6 +5,13 @@
  */
 package Econometrica;
 
+/**
+ *
+ * @author Μπορότης Βασίλειος
+ * @author Ντουλάκης Ευστράτιος
+ * @author Ντάφος Χρήστος
+ */
+
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -19,10 +26,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author Χρήστος Ντάφος
- */
 @Entity
 @Table(name = "COUNTRY_DATA")
 @XmlRootElement

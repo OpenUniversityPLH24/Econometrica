@@ -23,9 +23,7 @@ public class ParseData {
         System.out.println(response);
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(response);
-        System.out.println(obj);
         JSONObject jsonObject = (JSONObject) obj;
-        System.out.println(jsonObject);
         
         gpd newdata = new gpd(
             (String) jsonObject.get("dataset_code"),
@@ -34,6 +32,6 @@ public class ParseData {
             (List<String>) jsonObject.get("Date"),
             (List<String>) jsonObject.get("Value"));
         
-        //System.out.println(jsonObject.get("dataset_code"));
+        System.out.println(jsonObject.get("dataset"));
     }
 }

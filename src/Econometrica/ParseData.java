@@ -19,20 +19,21 @@ import org.json.simple.parser.ParseException;
 
 public class ParseData {
     
-    public void parseData(String response) throws ParseException{
+    public void parseData(String response) throws ParseException {
         System.out.println(response);
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(response);
+        System.out.println(obj);
         JSONObject jsonObject = (JSONObject) obj;
+        System.out.println(jsonObject);
         
         gpd newdata = new gpd(
             (String) jsonObject.get("dataset_code"),
             (String) jsonObject.get("name"),
             (String) jsonObject.get("description"),
-            (List<String>) jsonObject.get("dates"),
-            (List<String>) jsonObject.get("values"));
+            (List<String>) jsonObject.get("Date"),
+            (List<String>) jsonObject.get("Value"));
         
-        System.out.println(jsonObject.get("dataset_code"));        
-        System.out.println(newdata.getDataSet_Code());
+        //System.out.println(jsonObject.get("dataset_code"));
     }
 }

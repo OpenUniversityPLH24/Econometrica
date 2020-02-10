@@ -18,7 +18,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class ParseData {
-    String response;
     
     public void parseData(String response) throws ParseException{
         System.out.println(response);
@@ -33,6 +32,7 @@ public class ParseData {
             (List<String>) jsonObject.get("dates"),
             (List<String>) jsonObject.get("values"));
         
-        System.out.println(jsonObject.get("dataset_code"));
+        System.out.println(jsonObject.get("dataset_code"));        
+        System.out.println(newdata.getDataSet_Code());
     }
 }

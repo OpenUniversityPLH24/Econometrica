@@ -31,7 +31,7 @@ public class ParseData {
             (String) jsonObject.get("description"),
             (List<String>) jsonObject.get("Date"),
             (List<String>) jsonObject.get("Value"));
-        
-        System.out.println(jsonObject.get("dataset"));
+                
+        //System.out.println(jsonObject.getOrDefault("dataset", "0"));
     }
 }

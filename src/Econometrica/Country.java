@@ -5,15 +5,8 @@
  */
 package Econometrica;
 
-/**
- *
- * @author Μπορότης Βασίλειος
- * @author Ντουλάκης Ευστράτιος
- * @author Ντάφος Χρήστος
- */
-
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,6 +18,10 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+/**
+ *
+ * @author Χρήστος Ντάφος
+ */
 @Entity
 @Table(name = "COUNTRY")
 @XmlRootElement
@@ -43,7 +40,7 @@ public class Country implements Serializable {
     @Column(name = "NAME")
     private String name;
     @OneToMany(mappedBy = "countryCode")
-    private Collection<CountryDataset> countryDatasetCollection;
+    private List<CountryDataset> countryDatasetList;
 
     public Country() {
     }
@@ -74,12 +71,12 @@ public class Country implements Serializable {
     }
 
     @XmlTransient
-    public Collection<CountryDataset> getCountryDatasetCollection() {
-        return countryDatasetCollection;
+    public List<CountryDataset> getCountryDatasetList() {
+        return countryDatasetList;
     }
 
-    public void setCountryDatasetCollection(Collection<CountryDataset> countryDatasetCollection) {
-        this.countryDatasetCollection = countryDatasetCollection;
+    public void setCountryDatasetList(List<CountryDataset> countryDatasetList) {
+        this.countryDatasetList = countryDatasetList;
     }
 
     @Override

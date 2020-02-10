@@ -5,25 +5,27 @@
  */
 package Econometrica;
 
-/**
- *
- * @author Μπορότης Βασίλειος
- * @author Ντουλάκης Ευστράτιος
- * @author Ντάφος Χρήστος
- */
-
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
+/**
+ *
+ * @author Χρήστος Ντάφος
+ */
 @Entity
 @Table(name = "COUNTRY_DATASET")
 @XmlRootElement
@@ -48,23 +50,25 @@ public class CountryDataset implements Serializable {
     private String endYear;
     @Column(name = "DESCRIPTION")
     private String description;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "DATASET_ID")
-    private Double datasetId;
+    private Integer datasetId;
     @JoinColumn(name = "COUNTRY_CODE", referencedColumnName = "ISO_CODE")
     @ManyToOne
     private Country countryCode;
+    @OneToMany(mappedBy = "dataset")
+    private List<CountryData> countryDataList;
 
     public CountryDataset() {
     }
 
-    public CountryDataset(Double datasetId) {
+    public CountryDataset(Integer datasetId) {
         this.datasetId = datasetId;
     }
 
-    public CountryDataset(Double datasetId, String startYear, String name, String endYear) {
+    public CountryDataset(Integer datasetId, String startYear, String name, String endYear) {
         this.datasetId = datasetId;
         this.startYear = startYear;
         this.name = name;
@@ -103,11 +107,11 @@ public class CountryDataset implements Serializable {
         this.description = description;
     }
 
-    public Double getDatasetId() {
+    public Integer getDatasetId() {
         return datasetId;
     }
 
-    public void setDatasetId(Double datasetId) {
+    public void setDatasetId(Integer datasetId) {
         this.datasetId = datasetId;
     }
 
@@ -117,6 +121,15 @@ public class CountryDataset implements Serializable {
 
     public void setCountryCode(Country countryCode) {
         this.countryCode = countryCode;
+    }
+
+    @XmlTransient
+    public List<CountryData> getCountryDataList() {
+        return countryDataList;
+    }
+
+    public void setCountryDataList(List<CountryData> countryDataList) {
+        this.countryDataList = countryDataList;
     }
 
     @Override

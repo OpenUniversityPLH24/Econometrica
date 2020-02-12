@@ -37,16 +37,16 @@ public class ParseData {
         //η κλάση InputStream μετατρέπει τα δεδομένα σε μια διατεταγμένη σειρα απο bytes
                 
         JSONArray datalist = (JSONArray) jsonObject.get("data");
-        Iterator iterator = datalist.iterator();
-        while(iterator.hasNext()){
-            System.out.println("Data: "+iterator.next());
-        }
-        gpd newdata = new gpd(
-            (String) jsonObject.get("dataset_code"),
-            (String) jsonObject.get("name"),
-            (String) jsonObject.get("description"),
-            (List<String>) jsonObject.get("Date"),
-            (List<String>) jsonObject.get("Value"));
+ //       Iterator iterator = datalist.iterator();
+ //       while(iterator.hasNext()){
+ //           System.out.println("Data: "+iterator.next());
+ //       }
+ //       gpd newdata = new gpd(
+ //           (String) jsonObject.get("dataset_code"),
+ //           (String) jsonObject.get("name"),
+ //           (String) jsonObject.get("description"),
+ //           (List<String>) jsonObject.get("Date"),
+ //           (List<String>) jsonObject.get("Value"));
                 
         //System.out.println(jsonObject.getOrDefault("dataset", "0"));
     }

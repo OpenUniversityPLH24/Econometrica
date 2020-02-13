@@ -27,11 +27,12 @@ public class Econometrica {
      */
     public static void main(String[] args) throws ParseException {
         
-        //Εκκίνηση του Βασικού GUI
+        //Εκκίνηση του Βασικού GUI - Δημιουργία νέου αντικειμένου τύπου MainForm
         MainForm mainform = new MainForm();
-        mainform.setVisible( true );           // 6. ask it to become visible on the screen
-        mainform.setDefaultCloseOperation
-        (JFrame.EXIT_ON_CLOSE );       // 7. say what the close button does
+        //Ορατό στην οθόνη
+        mainform.setVisible(true);
+        //Ορισμός λειτουργίας του Close Button
+        mainform.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
         
         
         String url1 = "https://www.quandl.com/api/v3/datasets/WWDI/GRC_NY_GDP_MKTP_CN.json?api_key=j79mQ_zEuVUqFV1DihJT";

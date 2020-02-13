@@ -18,15 +18,33 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import okhttp3.*;
 import org.json.simple.parser.ParseException;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 public class Econometrica {
     
     /**
      * @param args the command line arguments
      * @throws org.json.simple.parser.ParseException
+     * @throws java.io.FileNotFoundException
      */
-    public static void main(String[] args) throws ParseException {
-        
+    public static void main(String[] args) throws ParseException, FileNotFoundException {
+
+    String line;  
+    String splitBy = ";";  
+    try   
+    {  
+    //parsing a CSV file into BufferedReader class constructor  
+        BufferedReader br = new BufferedReader(new FileReader("C://iso-countries.csv"));  
+        while ((line = br.readLine()) != null){   //returns a Boolean value  
+            String[] country = line.split(splitBy);    // use comma as separator  
+            System.out.println("ISO=" + country[3] + " Country=" + country[0]);  
+            }  
+        }   
+        catch (IOException e){  
+    }
+
         //Εκκίνηση του Βασικού GUI - Δημιουργία νέου αντικειμένου τύπου MainForm
         MainForm mainform = new MainForm();
         //Ορατό στην οθόνη
@@ -34,6 +52,10 @@ public class Econometrica {
         //Ορισμός λειτουργίας του Close Button
         mainform.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
         
+
+
+ 
+ 
         
         String url1 = "https://www.quandl.com/api/v3/datasets/WWDI/GRC_NY_GDP_MKTP_CN.json?api_key=j79mQ_zEuVUqFV1DihJT";
         String url2 = "https://www.quandl.com/api/v3/datasets/BP/OIL_CONSUM_GRC.json?api_key=j79mQ_zEuVUqFV1DihJT";
@@ -51,7 +73,6 @@ public class Econometrica {
                 parse1.parseData(responseString1);
             }
         } catch (IOException e) {
-            e.printStackTrace();
         }
         
         try (Response response2 = client.newCall(request2).execute()) {
@@ -62,7 +83,6 @@ public class Econometrica {
                 parse2.parseData(responseString2);
             }
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

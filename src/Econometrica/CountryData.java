@@ -3,7 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package Econometrica;
+
+/**
+ *
+ * @author Μπορότης Βασίλειος
+ * @author Ντουλάκης Ευστράτιος
+ * @author Ντάφος Χρήστος
+ */
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -19,10 +27,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author Χρήστος Ντάφος
- */
 @Entity
 @Table(name = "COUNTRY_DATA")
 @XmlRootElement

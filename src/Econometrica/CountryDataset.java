@@ -3,7 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package Econometrica;
+
+/**
+ *
+ * @author Μπορότης Βασίλειος
+ * @author Ντουλάκης Ευστράτιος
+ * @author Ντάφος Χρήστος
+ */
 
 import java.io.Serializable;
 import java.util.List;

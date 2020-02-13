@@ -136,7 +136,7 @@ public class MainForm extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Title 1", "Title 2"
+                "Year", "Value"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -149,7 +149,7 @@ public class MainForm extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Title 1", "Title 2"
+                "Year", "Value"
             }
         ));
         jScrollPane2.setViewportView(jTable2);

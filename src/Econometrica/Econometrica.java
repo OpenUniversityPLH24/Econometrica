@@ -13,7 +13,9 @@ package Econometrica;
  * @author Ντάφος Χρήστος
  */
 
+import GuiDesign.MainForm;
 import java.io.IOException;
+import javax.swing.JFrame;
 import okhttp3.*;
 import org.json.simple.parser.ParseException;
 
@@ -24,6 +26,14 @@ public class Econometrica {
      * @throws org.json.simple.parser.ParseException
      */
     public static void main(String[] args) throws ParseException {
+        
+        //Εκκίνηση του Βασικού GUI
+        MainForm mainform = new MainForm();
+        mainform.setVisible( true );           // 6. ask it to become visible on the screen
+        mainform.setDefaultCloseOperation
+        (JFrame.EXIT_ON_CLOSE );       // 7. say what the close button does
+        
+        
         String url1 = "https://www.quandl.com/api/v3/datasets/WWDI/GRC_NY_GDP_MKTP_CN.json?api_key=j79mQ_zEuVUqFV1DihJT";
         String url2 = "https://www.quandl.com/api/v3/datasets/BP/OIL_CONSUM_GRC.json?api_key=j79mQ_zEuVUqFV1DihJT";
         

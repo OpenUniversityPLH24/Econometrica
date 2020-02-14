@@ -34,8 +34,7 @@ public class Econometrica {
         //Ορατό στην οθόνη
         mainform.setVisible(true);
         //Ορισμός λειτουργίας του Close Button
-        mainform.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
-        
+        mainform.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );        
        
         String url1 = "https://www.quandl.com/api/v3/datasets/WWDI/GRC_NY_GDP_MKTP_CN.json?api_key=j79mQ_zEuVUqFV1DihJT";
         String url2 = "https://www.quandl.com/api/v3/datasets/BP/OIL_CONSUM_GRC.json?api_key=j79mQ_zEuVUqFV1DihJT";

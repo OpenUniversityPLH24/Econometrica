@@ -86,6 +86,7 @@ public class MainForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Econometrica");
+        setLocation(new java.awt.Point(500, 250));
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N

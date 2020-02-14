@@ -32,6 +32,7 @@ public class PlotPanel extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Economic Data");
+        setLocation(new java.awt.Point(500, 250));
         setResizable(false);
         setSize(new java.awt.Dimension(500, 250));
 

@@ -7,7 +7,7 @@
 package Econometrica;
 
 /**
- *12
+ *
  * @author Μπορότης Βασίλειος
  * @author Ντουλάκης Ευστράτιος
  * @author Ντάφος Χρήστος

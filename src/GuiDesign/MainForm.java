@@ -5,6 +5,10 @@
  */
 package GuiDesign;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  *
  * @author Χρήστος Ντάφος
@@ -16,8 +20,33 @@ public class MainForm extends javax.swing.JFrame {
      */
     public MainForm() {
         initComponents();
-    }
+        Countryfilldata();
 
+    }
+    
+    public void Countryfilldata(){
+    
+    String line;  
+    String splitBy = ";"; 
+    String csv = "C://iso-countries.csv"; 
+        
+    try   
+        {  
+        //parsing a CSV file into BufferedReader class constructor  
+            BufferedReader br = new BufferedReader(new FileReader(csv));
+            br.readLine();
+            while ((line = br.readLine()) != null){   //returns a Boolean value  
+                String[] country = line.split(splitBy);    // use comma as separator  
+                String[][] csvData = new String[250][4];
+                int i = 0;
+                csvData[i][0] = country[0];
+                CountrySelect.addItem(csvData[i][0]);
+                i++;
+                }  
+            }
+            catch (IOException e){  
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,7 +72,6 @@ public class MainForm extends javax.swing.JFrame {
         Save_Button = new javax.swing.JButton();
         Plot_Button = new javax.swing.JButton();
         Fetch_Button = new javax.swing.JButton();
-        CountrySelection = new java.awt.Choice();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
@@ -54,6 +82,7 @@ public class MainForm extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        CountrySelect = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Econometrica");
@@ -200,8 +229,8 @@ public class MainForm extends javax.swing.JFrame {
                                             .addGap(18, 18, 18)
                                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(CountrySelection, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)
+                                .addComponent(CountrySelect, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
                                 .addComponent(Fetch_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -227,7 +256,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(CountrySelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(CountrySelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(Fetch_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -333,7 +362,7 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Choice CountrySelection;
+    private javax.swing.JComboBox<String> CountrySelect;
     private javax.swing.JButton Delete_Button;
     private javax.swing.JButton Fetch_Button;
     private javax.swing.JButton Plot_Button;

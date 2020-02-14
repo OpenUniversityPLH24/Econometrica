@@ -326,7 +326,7 @@ public class MainForm extends javax.swing.JFrame {
     private void Plot_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Plot_ButtonActionPerformed
         PlotPanel plot = new PlotPanel();
         plot.setVisible(true);
-        plot.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
+        plot.setDefaultCloseOperation(MainForm.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_Plot_ButtonActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed

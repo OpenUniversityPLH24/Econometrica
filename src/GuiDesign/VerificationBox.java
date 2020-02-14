@@ -25,7 +25,7 @@ public class VerificationBox extends javax.swing.JPanel {
 
     VerificationBox(JLabel jLabel1) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        }
     
 
 

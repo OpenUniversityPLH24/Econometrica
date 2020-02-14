@@ -5,9 +5,12 @@
  */
 package GuiDesign;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,7 +32,7 @@ public class MainForm extends javax.swing.JFrame {
     
     String line;  
     String splitBy = ";"; 
-    String csv = "C://iso-countries.csv"; 
+    String csv = "iso-countries.csv"; 
         
     try   
         {  
@@ -317,11 +320,13 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void Delete_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Delete_ButtonActionPerformed
-        int a2 = JOptionPane.showConfirmDialog(rootPane, "Είσαι βέβαιος για τη διαγραφή;");
+        int verify = JOptionPane.showConfirmDialog(rootPane, "Είσαι βέβαιος για τη διαγραφή;");
     }//GEN-LAST:event_Delete_ButtonActionPerformed
 
     private void Plot_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Plot_ButtonActionPerformed
-        // TODO add your handling code here:
+        PlotPanel plot = new PlotPanel();
+        plot.setVisible(true);
+        plot.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
     }//GEN-LAST:event_Plot_ButtonActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed

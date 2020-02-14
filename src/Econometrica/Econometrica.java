@@ -33,6 +33,7 @@ public class Econometrica {
         MainForm mainform = new MainForm();
         //Ορατό στην οθόνη
         mainform.setVisible(true);
+        mainform.pack();
         //Ορισμός λειτουργίας του Close Button
         mainform.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
                

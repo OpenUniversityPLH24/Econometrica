@@ -8,6 +8,7 @@ package GuiDesign;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,7 +21,8 @@ public class MainForm extends javax.swing.JFrame {
      */
     public MainForm() {
         initComponents();
-        Countryfilldata();        
+        Countryfilldata();
+        
     }
     
     public void Countryfilldata(){
@@ -315,6 +317,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void Delete_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Delete_ButtonActionPerformed
+        int a2 = JOptionPane.showConfirmDialog(rootPane, "Είσαι βέβαιος για τη διαγραφή;");
     }//GEN-LAST:event_Delete_ButtonActionPerformed
 
     private void Plot_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Plot_ButtonActionPerformed

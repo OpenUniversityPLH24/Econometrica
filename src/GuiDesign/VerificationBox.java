@@ -5,6 +5,9 @@
  */
 package GuiDesign;
 
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
 /**
  *
  * @author Χρήστος Ντάφος
@@ -13,10 +16,18 @@ public class VerificationBox extends javax.swing.JPanel {
 
     /**
      * Creates new form VerificationBox
+     * @param t1
      */
     public VerificationBox() {
         initComponents();
+      
     }
+
+    VerificationBox(JLabel jLabel1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -99,4 +110,8 @@ public class VerificationBox extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
+
+    void pack() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

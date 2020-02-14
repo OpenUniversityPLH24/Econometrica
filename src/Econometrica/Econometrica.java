@@ -31,32 +31,13 @@ public class Econometrica {
      */
     public static void main(String[] args) throws ParseException, FileNotFoundException {
 
-    String line;  
-    String splitBy = ";";  
-    try   
-    {  
-    //parsing a CSV file into BufferedReader class constructor  
-        BufferedReader br = new BufferedReader(new FileReader("C://iso-countries.csv"));  
-        while ((line = br.readLine()) != null){   //returns a Boolean value  
-            String[] country = line.split(splitBy);    // use comma as separator  
-            System.out.println("ISO=" + country[3] + " Country=" + country[0]);  
-            }  
-        }   
-        catch (IOException e){  
-    }
-
         //Εκκίνηση του Βασικού GUI - Δημιουργία νέου αντικειμένου τύπου MainForm
         MainForm mainform = new MainForm();
         //Ορατό στην οθόνη
         mainform.setVisible(true);
         //Ορισμός λειτουργίας του Close Button
         mainform.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
-        
-
-
- 
- 
-        
+       
         String url1 = "https://www.quandl.com/api/v3/datasets/WWDI/GRC_NY_GDP_MKTP_CN.json?api_key=j79mQ_zEuVUqFV1DihJT";
         String url2 = "https://www.quandl.com/api/v3/datasets/BP/OIL_CONSUM_GRC.json?api_key=j79mQ_zEuVUqFV1DihJT";
         

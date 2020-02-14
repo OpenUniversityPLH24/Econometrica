@@ -20,8 +20,7 @@ public class MainForm extends javax.swing.JFrame {
      */
     public MainForm() {
         initComponents();
-        Countryfilldata();
-
+        Countryfilldata();        
     }
     
     public void Countryfilldata(){
@@ -316,7 +315,6 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void Delete_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Delete_ButtonActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_Delete_ButtonActionPerformed
 
     private void Plot_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Plot_ButtonActionPerformed

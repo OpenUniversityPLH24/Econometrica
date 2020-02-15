@@ -37,8 +37,14 @@ public class Econometrica {
         //Ορισμός λειτουργίας του Close Button
         mainform.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
                
-       /*String url1 = "https://www.quandl.com/api/v3/datasets/WWDI/GRC_NY_GDP_MKTP_CN.json?api_key=j79mQ_zEuVUqFV1DihJT";
-        String url2 = "https://www.quandl.com/api/v3/datasets/BP/OIL_CONSUM_GRC.json?api_key=j79mQ_zEuVUqFV1DihJT";
+       /*
+        String str = "https://www.quandl.com/api/v3/datasets/";
+        String gdp_country_code = "WWDI/GRC_NY_GDP_MKTP_CN";
+        String oil_country_code = "BP/OIL_CONSUM_GRC";
+        String apikey = ".json?api_key=j79mQ_zEuVUqFV1DihJT";
+        
+        String url1 = str+gdp_country_code+apikey;
+        String url2 = str+oil_country_code+apikey;
         
         OkHttpClient client = new OkHttpClient();
 
@@ -51,8 +57,8 @@ public class Econometrica {
                 //System.out.println(responseString1);
                 ParseData parse1 = new ParseData();
                 parse1.parseData(responseString1);
-            }
-        } catch (IOException e) {
+                }
+            } catch (IOException e) {
         }
         
         try (Response response2 = client.newCall(request2).execute()) {
@@ -61,8 +67,8 @@ public class Econometrica {
                 //System.out.println(responseString2);
                 ParseData parse2 = new ParseData();
                 parse2.parseData(responseString2);
-            }
-        } catch (IOException e) {
+                }
+            } catch (IOException e) {
         }*/
     }
 }

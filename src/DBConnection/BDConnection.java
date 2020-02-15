@@ -21,19 +21,18 @@ import java.sql.Statement;
 
 public class BDConnection {
 
-    public String executeQuery(String query) throws SQLException {
+    public void executeQuery(String query) throws SQLException {
         String server = "jdbc:derby://localhost:1527/Econometrica [ergasia3 on ERGASIA3]";
-        String user="ergasia3";
-        String pass="ergasia3";
+        String user = "ergasia3";
+        String pass = "ergasia3";
         
-        String answer = "";
-        try (Connection conn = DriverManager.getConnection(server,user,pass);
-        Statement state = conn.createStatement();
-        ResultSet set = state.executeQuery(query);) {
-            if(set.next()) {
-                answer = set.getString(2);
+        try (Connection conn = DriverManager.getConnection(server,user,pass)) {
+            Statement state = conn.createStatement();
+            ResultSet rs=state.executeQuery(query);
+            
+            while(rs.next()){
+                System.out.println(rs.getInt(1)+" "+rs.getString(2));  
             }
         }
-        return answer;
     }
 }

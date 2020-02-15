@@ -5,13 +5,9 @@
  */
 package GuiDesign;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,8 +21,7 @@ public class MainForm extends javax.swing.JFrame {
      */
     public MainForm() {
         initComponents();
-        Countryfilldata();
-        
+        Countryfilldata();        
     }
     
     public void Countryfilldata(){

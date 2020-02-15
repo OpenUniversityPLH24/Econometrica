@@ -3,19 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package GuiDesign;
+
+import java.awt.BorderLayout;
 
 /**
  *
- * @author Χρήστος Ντάφος
+ * @author Μπορότης Βασίλειος
+ * @author Ντουλάκης Ευστράτιος
+ * @author Ντάφος Χρήστος
  */
+
 public class PlotPanel extends javax.swing.JFrame {
 
     /**
      * Creates new form PlotPanel
+     * @param plotcountry
      */
-    public PlotPanel() {
+    public PlotPanel(String plotcountry) {
         initComponents();
+        String output = plotcountry.substring(0, 1).toUpperCase() + plotcountry.substring(1).toLowerCase();
+        Plot_Panel.setText("Economic Data for "+String.valueOf(output));
     }
 
     /**
@@ -51,7 +60,7 @@ public class PlotPanel extends javax.swing.JFrame {
 
         Plot_Panel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Plot_Panel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Plot_Panel.setText("Economic Data for <country>");
+        Plot_Panel.setText("country");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

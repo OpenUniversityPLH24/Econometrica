@@ -3,14 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GuiDesign;
 
-import javax.swing.JLabel;
+package GuiDesign;
 
 /**
  *
- * @author Χρήστος Ντάφος
+ * @author Μπορότης Βασίλειος
+ * @author Ντουλάκης Ευστράτιος
+ * @author Ντάφος Χρήστος
  */
+
+import javax.swing.JLabel;
+
 public class VerificationBox extends javax.swing.JPanel {
 
     /**

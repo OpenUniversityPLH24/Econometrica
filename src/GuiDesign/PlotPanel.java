@@ -6,14 +6,14 @@
 
 package GuiDesign;
 
-import java.awt.BorderLayout;
-
 /**
  *
  * @author Μπορότης Βασίλειος
  * @author Ντουλάκης Ευστράτιος
  * @author Ντάφος Χρήστος
  */
+
+import java.awt.BorderLayout;
 
 public class PlotPanel extends javax.swing.JFrame {
 

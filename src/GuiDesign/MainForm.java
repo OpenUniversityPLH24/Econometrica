@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -146,6 +147,11 @@ public class MainForm extends javax.swing.JFrame {
         });
 
         Fetch_Button.setText("Fetch Data");
+        Fetch_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Fetch_ButtonActionPerformed(evt);
+            }
+        });
 
         jTextField1.setText("Dataset_1");
 
@@ -332,6 +338,11 @@ public class MainForm extends javax.swing.JFrame {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void Fetch_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Fetch_ButtonActionPerformed
+        System.out.println(CountrySelect.getSelectedItem());
+        String selection = (String) CountrySelect.getSelectedItem();
+    }//GEN-LAST:event_Fetch_ButtonActionPerformed
 
     /**
      * @param args the command line arguments

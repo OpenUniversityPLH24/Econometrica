@@ -6,7 +6,6 @@
 package GuiDesign;
 
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 /**
  *
@@ -16,7 +15,6 @@ public class VerificationBox extends javax.swing.JPanel {
 
     /**
      * Creates new form VerificationBox
-     * @param t1
      */
     public VerificationBox() {
         initComponents();

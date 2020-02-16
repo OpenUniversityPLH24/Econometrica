@@ -203,7 +203,7 @@ public class MainForm extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Title 1", "Title 2"
+                "Date", "Values"
             }
         ));
         jScrollPane3.setViewportView(jTable3);
@@ -233,7 +233,7 @@ public class MainForm extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Title 1", "Title 2"
+                "Date", "Values"
             }
         ));
         jScrollPane4.setViewportView(jTable4);

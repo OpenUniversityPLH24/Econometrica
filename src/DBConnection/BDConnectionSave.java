@@ -19,7 +19,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class BDConnection {
+public class BDConnectionSave {
 
     public void executeQuery(String query) throws SQLException {
         String server = "jdbc:derby://localhost:1527/Econometrica [ergasia3 on ERGASIA3]";

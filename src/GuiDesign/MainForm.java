@@ -13,9 +13,13 @@ package GuiDesign;
  * @author Ντάφος Χρήστος
  */
 
+import DBConnection.BDConnectionSave;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class MainForm extends javax.swing.JFrame {
@@ -47,7 +51,7 @@ public class MainForm extends javax.swing.JFrame {
                 csvData[i][1] = country[1];
                 csvData[i][2] = country[2];
                 csvData[i][3] = country[3];
-                CountrySelect.addItem(csvData[i][0]);
+                CountrySelect.addItem(csvData[i][0]+" - "+csvData[i][3]);
                 i++;
                 }  
             }
@@ -140,6 +144,11 @@ public class MainForm extends javax.swing.JFrame {
         });
 
         Save_Button.setText("Save");
+        Save_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Save_ButtonActionPerformed(evt);
+            }
+        });
 
         Plot_Button.setText("Plot");
         Plot_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -343,6 +352,18 @@ public class MainForm extends javax.swing.JFrame {
         OilCountry(selection);
         GPDCountry(selection);
     }//GEN-LAST:event_Fetch_ButtonActionPerformed
+
+    private void Save_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_ButtonActionPerformed
+        String savedata = (String) CountrySelect.getSelectedItem();
+        BDConnectionSave save = new BDConnectionSave();
+        String sql;
+        sql = "INSERT INTO COUNTRY (ISO_CODE,NAME) VALUES (4,"+savedata+")";
+        try {
+            save.saveQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_Save_ButtonActionPerformed
 
     public void OilCountry(String selection) {
         String output = selection.substring(0, 1).toUpperCase() + selection.substring(1).toLowerCase();

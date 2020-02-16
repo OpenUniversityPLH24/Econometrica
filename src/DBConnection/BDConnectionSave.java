@@ -21,20 +21,20 @@ import java.sql.Statement;
 
 public class BDConnectionSave {
 
-    public void executeQuery(String query) throws SQLException {
-        String server = "jdbc:derby://localhost:1527/Econometrica [ergasia3 on ERGASIA3]";
+    public void saveQuery(String query) throws SQLException {
+        String server = "jdbc:derby://localhost:1527/Econometrica";
         String user = "ergasia3";
         String pass = "ergasia3";
         
         try (Connection conn = DriverManager.getConnection(server,user,pass)) {
-            Statement state = conn.createStatement();
-            ResultSet rs=state.executeQuery(query);
-            
-            while(rs.next()){
-                System.out.println(rs.getInt(1)+" "+rs.getString(2));  
+            ResultSet rs;
+            try (Statement state = conn.createStatement()) {
+                rs = state.executeQuery(query);
+                //while(rs.next()){
+                //    System.out.println(rs.getInt(1)+" "+rs.getString(2));
+                //}
+                conn.close();
             }
-            conn.close();
-            state.close();
             rs.close();
         }
     }

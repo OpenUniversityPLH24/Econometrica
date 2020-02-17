@@ -13,7 +13,7 @@ package GuiDesign;
  * @author Ντάφος Χρήστος
  */
 
-import DBConnection.BDConnectionSave;
+import DBConnection.BDConnection;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -391,9 +391,9 @@ public class MainForm extends javax.swing.JFrame {
 
     private void Save_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_ButtonActionPerformed
         String savedata = (String) CountrySelect.getSelectedItem();
-        BDConnectionSave save = new BDConnectionSave();
+        BDConnection save = new BDConnection();
         String sql;
-        sql = "INSERT INTO COUNTRY (ISO_CODE,NAME) VALUES (4,"+savedata+")";
+        sql = "INSERT INTO COUNTRY (ISO_CODE,NAME) VALUES (4,AFGHANISTAN)";
         try {
             save.saveQuery(sql);
             } catch (SQLException ex) {

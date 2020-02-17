@@ -19,7 +19,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class BDConnectionSave {
+public class BDConnection {
 
     public void saveQuery(String query) throws SQLException, ClassNotFoundException {
 

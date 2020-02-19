@@ -36,8 +36,10 @@ public class Econometrica {
         mainform.pack();
         //Ορισμός λειτουργίας του Close Button
         mainform.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
-               
-       /*
+
+        /*https://www.quandl.com/api/v3/datasets/WWDI/GRC_NY_GDP_MKTP_CN.json?api_key=j79mQ_zEuVUqFV1DihJT*/
+        
+        /*
         String str = "https://www.quandl.com/api/v3/datasets/";
         String gdp_country_code = "WWDI/GRC_NY_GDP_MKTP_CN";
         String oil_country_code = "BP/OIL_CONSUM_GRC";

@@ -32,7 +32,8 @@ public class MainForm extends javax.swing.JFrame {
     
     public MainForm() {
         initComponents();
-        Countryfilldata();        
+        Countryfilldata();
+        SavedCheckBox.setEnabled(false);
     }
     
     public void Countryfilldata(){
@@ -81,7 +82,7 @@ public class MainForm extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        SavedCheckBox = new javax.swing.JCheckBox();
         Delete_Button = new javax.swing.JButton();
         Save_Button = new javax.swing.JButton();
         Plot_Button = new javax.swing.JButton();
@@ -132,10 +133,10 @@ public class MainForm extends javax.swing.JFrame {
 
         jLabel11.setText("End Date:");
 
-        jCheckBox1.setText("Already Saved to DataBase");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        SavedCheckBox.setText("Already Saved to DataBase");
+        SavedCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                SavedCheckBoxActionPerformed(evt);
             }
         });
 
@@ -241,7 +242,7 @@ public class MainForm extends javax.swing.JFrame {
                                         .addGap(4, 4, 4)
                                         .addComponent(Delete_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jCheckBox1))
+                                        .addComponent(SavedCheckBox))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,7 +320,7 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
+                    .addComponent(SavedCheckBox)
                     .addComponent(Delete_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Plot_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Save_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -329,9 +330,9 @@ public class MainForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void SavedCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SavedCheckBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_SavedCheckBoxActionPerformed
 
     private void Delete_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Delete_ButtonActionPerformed
         int verify = JOptionPane.showConfirmDialog(rootPane, "Είσαι βέβαιος για τη διαγραφή;");
@@ -351,11 +352,16 @@ public class MainForm extends javax.swing.JFrame {
         String sql2;
         sql1 = "SELECT * FROM ERGASIA3.COUNTRY, ERGASIA3.COUNTRY_DATA, ERGASIA3.COUNTRY_DATASET WHERE COUNTRY.NAME='" + selection +"' AND COUNTRY_DATA.DATASET=COUNTRY_DATASET.DATASET_ID AND COUNTRY_DATASET.COUNTRY_CODE=COUNTRY.ISO_CODE AND COUNTRY_DATASET.DESCRIPTION LIKE 'DGP%'";
         sql2 = "SELECT * FROM ERGASIA3.COUNTRY, ERGASIA3.COUNTRY_DATA, ERGASIA3.COUNTRY_DATASET WHERE COUNTRY.NAME='" + selection +"' AND COUNTRY_DATA.DATASET=COUNTRY_DATASET.DATASET_ID AND COUNTRY_DATASET.COUNTRY_CODE=COUNTRY.ISO_CODE AND COUNTRY_DATASET.DESCRIPTION LIKE 'Oil%'";
- 
-        
+
+
         try {
             DefaultTableModel model = (DefaultTableModel) GPDDataTable.getModel();
             model.setRowCount(0);
+            if(SavedCheckBox.isSelected()){
+                SavedCheckBox.setEnabled(true);
+                SavedCheckBox.doClick();
+                SavedCheckBox.setEnabled(false);
+            }
             AllData alldata1 = new AllData(save.openConnection(sql1).getCountry(), save.openConnection(sql1).getCountryData(), save.openConnection(sql1).getCountryDataset());
             String gpddescription = alldata1.getCountryDataset().getDescription();
             System.out.println(gpddescription);
@@ -371,6 +377,11 @@ public class MainForm extends javax.swing.JFrame {
             String gpdvalue = alldata1.getCountryData().get(i).getValue();
             model.addRow(new Object[]{gpdyear, gpdvalue});
             i++;
+            }            
+            if(i!=0){
+                SavedCheckBox.setEnabled(true);
+                SavedCheckBox.doClick();
+                SavedCheckBox.setEnabled(false);
             }
          
         } catch (SQLException | ClassNotFoundException ex) {
@@ -477,8 +488,8 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel OilStartDate;
     private javax.swing.JButton Plot_Button;
     private javax.swing.JButton Save_Button;
+    private javax.swing.JCheckBox SavedCheckBox;
     private javax.swing.JLabel gpdcountry;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

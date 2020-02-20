@@ -18,7 +18,6 @@ import Econometrica.AllData;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -87,17 +86,17 @@ public class MainForm extends javax.swing.JFrame {
         Save_Button = new javax.swing.JButton();
         Plot_Button = new javax.swing.JButton();
         Fetch_Button = new javax.swing.JButton();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
         CountrySelect = new javax.swing.JComboBox<>();
         gpdcountry = new javax.swing.JLabel();
         oilcountry = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         OilDataTable = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        GPDDataTable = new javax.swing.JTable();
         OilStartDate = new javax.swing.JLabel();
         OilEndDate = new javax.swing.JLabel();
+        GPDStartDate = new javax.swing.JLabel();
+        GPDEndDate = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Econometrica");
@@ -168,10 +167,6 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        jTextField3.setText("Start_Date_2");
-
-        jTextField6.setText("End_Date_2");
-
         gpdcountry.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         oilcountry.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -188,35 +183,15 @@ public class MainForm extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(OilDataTable);
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        GPDDataTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Date", "Values"
             }
         ));
-        jScrollPane4.setViewportView(jTable4);
+        jScrollPane4.setViewportView(GPDDataTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -226,9 +201,6 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,55 +209,59 @@ public class MainForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(CountrySelect, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(Fetch_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel8)
+                                                .addComponent(jLabel11))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(OilStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(OilEndDate, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
+                                            .addGap(0, 0, Short.MAX_VALUE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addComponent(Save_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGap(68, 68, 68)
+                                                    .addComponent(Plot_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(oilcountry, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel8)
-                                            .addComponent(jLabel11))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(OilStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(OilEndDate, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(Save_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(68, 68, 68)
-                                                .addComponent(Plot_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(oilcountry, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)))
+                                        .addComponent(jLabel6)
+                                        .addGap(220, 220, 220)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(4, 4, 4)
                                         .addComponent(Delete_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jCheckBox1))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(0, 0, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel10)
-                                                .addGap(26, 26, 26)
-                                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel9)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jLabel7)
                                             .addComponent(jLabel5)
                                             .addComponent(jLabel4)
-                                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(12, 12, 12))
+                                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel7)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                    .addComponent(jLabel10)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(GPDEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                    .addComponent(jLabel9)
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(GPDStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGap(26, 26, 26))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(gpdcountry, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(CountrySelect, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(Fetch_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
                         .addGap(34, 34, 34))))
         );
         layout.setVerticalGroup(
@@ -309,28 +285,29 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(oilcountry, javax.swing.GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
                     .addComponent(gpdcountry, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 37, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel10)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel6)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(OilStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(OilEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(OilStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel11)
+                                    .addComponent(OilEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(GPDStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(GPDEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
@@ -365,48 +342,58 @@ public class MainForm extends javax.swing.JFrame {
     private void Fetch_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Fetch_ButtonActionPerformed
         String selection = (String) CountrySelect.getSelectedItem();
         BDConnectionFetch save = new BDConnectionFetch();
-        String sql;
-        sql = "SELECT * FROM ERGASIA3.COUNTRY, ERGASIA3.COUNTRY_DATA, ERGASIA3.COUNTRY_DATASET WHERE COUNTRY.NAME='" + selection +"' AND COUNTRY_DATA.DATASET=COUNTRY_DATASET.DATASET_ID AND COUNTRY_DATASET.COUNTRY_CODE=COUNTRY.ISO_CODE";
-
+        String sql1;
+        String sql2;
+        sql1 = "SELECT * FROM ERGASIA3.COUNTRY, ERGASIA3.COUNTRY_DATA, ERGASIA3.COUNTRY_DATASET WHERE COUNTRY.NAME='" + selection +"' AND COUNTRY_DATA.DATASET=COUNTRY_DATASET.DATASET_ID AND COUNTRY_DATASET.COUNTRY_CODE=COUNTRY.ISO_CODE AND COUNTRY_DATASET.DESCRIPTION LIKE 'DGP%'";
+        sql2 = "SELECT * FROM ERGASIA3.COUNTRY, ERGASIA3.COUNTRY_DATA, ERGASIA3.COUNTRY_DATASET WHERE COUNTRY.NAME='" + selection +"' AND COUNTRY_DATA.DATASET=COUNTRY_DATASET.DATASET_ID AND COUNTRY_DATASET.COUNTRY_CODE=COUNTRY.ISO_CODE AND COUNTRY_DATASET.DESCRIPTION LIKE 'Oil%'";
+ 
         
         try {
-            AllData alldata = new AllData(save.openConnection(sql).getCountry(), save.openConnection(sql).getCountryData(), save.openConnection(sql).getCountryDataset());
-            for(int i=0;i<2;i++){
-                System.out.println(alldata.getCountryData().toArray());
-                System.out.println(alldata.getCountryData().getValue());
-            }
-            /*try {
-            AllData alldata = new AllData(save.openConnection(sql).getCountry(), save.openConnection(sql).getCountryData(), save.openConnection(sql).getCountryDataset());
-            String countryname = alldata.getCountry().getName();
-            OilCountry(countryname);
-            GPDCountry(countryname);
-            String oilstartdate = (String) alldata.getCountryDataset().getStartYear();
-            String oilenddate = (String) alldata.getCountryDataset().getEndYear();
-            OilStartDate(oilstartdate);
-            OilEndDate(oilenddate);
+            DefaultTableModel model = (DefaultTableModel) GPDDataTable.getModel();
+            model.setRowCount(0);
+            AllData alldata1 = new AllData(save.openConnection(sql1).getCountry(), save.openConnection(sql1).getCountryData(), save.openConnection(sql1).getCountryDataset());
+            String gpddescription = alldata1.getCountryDataset().getDescription();
+            System.out.println(gpddescription);
+            GPDCountry(gpddescription);
+            String gpdstartdate = (String) alldata1.getCountryDataset().getStartYear();
+            String gpdenddate = (String) alldata1.getCountryDataset().getEndYear();
+            GPDStartDate(gpdstartdate);
+            GPDEndDate(gpdenddate);
             
-            
-            
-            while(alldata.getCountryData().toArray().getRow()){
             int i=0;
-            DefaultTableModel model = (DefaultTableModel) OilDataTable.getModel();
-            int j=alldata.getCountryData().getDataYear().length();
-            String year = rsa.getString("DATA_YEAR");
-            String value = rsa.getString("VALUE");
-            String[][] oilyearvalues = new String[j][2];
-            model.addRow(new Object[]{oilyearvalues[i][0], oilyearvalues[i][1]});
+            while(i<alldata1.getCountryData().size()){
+            String gpdyear = alldata1.getCountryData().get(i).getDataYear();
+            String gpdvalue = alldata1.getCountryData().get(i).getValue();
+            model.addRow(new Object[]{gpdyear, gpdvalue});
             i++;
             }
-            
-            } catch (SQLException ex) {
-            } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
-        } catch (SQLException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+         
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        try {
+            DefaultTableModel model = (DefaultTableModel) OilDataTable.getModel();
+            model.setRowCount(0);
+            AllData alldata2 = new AllData(save.openConnection(sql2).getCountry(), save.openConnection(sql2).getCountryData(), save.openConnection(sql2).getCountryDataset());
+            String oildescription = alldata2.getCountryDataset().getDescription();
+            System.out.println(oildescription);
+            OilCountry(oildescription);
+            String oilstartdate = (String) alldata2.getCountryDataset().getStartYear();
+            String oilenddate = (String) alldata2.getCountryDataset().getEndYear();
+            OilStartDate(oilstartdate);
+            OilEndDate(oilenddate);
+            int i=0;
+            while(i<alldata2.getCountryData().size()){
+            String oilyear = alldata2.getCountryData().get(i).getDataYear();
+            String oilvalue = alldata2.getCountryData().get(i).getValue();
+            model.addRow(new Object[]{oilyear, oilvalue});
+            i++;
+            }
+         
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }        
     }//GEN-LAST:event_Fetch_ButtonActionPerformed
 
     private void Save_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_ButtonActionPerformed
@@ -415,13 +402,11 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_Save_ButtonActionPerformed
 
     public void OilCountry(String selection) {
-        String output = selection.substring(0, 1).toUpperCase() + selection.substring(1).toLowerCase();
-        oilcountry.setText("Oil Consumption - "+String.valueOf(output));
+        oilcountry.setText(String.valueOf(selection));
     }
 
     public void GPDCountry(String selection) {
-        String output = selection.substring(0, 1).toUpperCase() + selection.substring(1).toLowerCase();
-        gpdcountry.setText("GPD (current LCU) - "+String.valueOf(output));
+        gpdcountry.setText(String.valueOf(selection));
     }
     
     public void OilStartDate(String oilstartdate) {
@@ -430,6 +415,14 @@ public class MainForm extends javax.swing.JFrame {
     
     public void OilEndDate(String oilenddate) {
         OilEndDate.setText(String.valueOf(oilenddate));
+    }
+    
+    public void GPDStartDate(String gpdstartdate) {
+        GPDStartDate.setText(String.valueOf(gpdstartdate));
+    }
+    
+    public void GPDEndDate(String gpdenddate) {
+        GPDEndDate.setText(String.valueOf(gpdenddate));
     }
     
     /**
@@ -471,6 +464,9 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> CountrySelect;
     private javax.swing.JButton Delete_Button;
     private javax.swing.JButton Fetch_Button;
+    private javax.swing.JTable GPDDataTable;
+    private javax.swing.JLabel GPDEndDate;
+    private javax.swing.JLabel GPDStartDate;
     private javax.swing.JTable OilDataTable;
     private javax.swing.JLabel OilEndDate;
     private javax.swing.JLabel OilStartDate;
@@ -491,9 +487,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JLabel oilcountry;
     // End of variables declaration//GEN-END:variables
 }

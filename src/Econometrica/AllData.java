@@ -3,23 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package Econometrica;
 
 /**
  *
- * @author Χρήστος Ντάφος
+ * @author Μπορότης Βασίλειος
+ * @author Ντουλάκης Ευστράτιος
+ * @author Ντάφος Χρήστος
  */
+
+import java.util.List;
+
 public class AllData {
     private Country countries;
-    private CountryData country_datas;
+    private List<CountryData> country_datas;
     private CountryDataset country_datasets;
 
-    public AllData(Country countries, CountryData country_datas, CountryDataset country_datasets) {
+    public AllData(Country countries, List<CountryData> country_datas, CountryDataset country_datasets) {
         this.countries = countries;
-        this.country_datas = country_datas;
         this.country_datasets = country_datasets;
-    } 
-    
+        this.country_datas = country_datas;
+    }
+
     public Country getCountry() {
         return countries;
     }
@@ -28,12 +34,12 @@ public class AllData {
         this.countries = countries;
     }
     
-    public CountryData getCountryData() {
+    public List<CountryData> getCountryData() {
         return country_datas;
     }
 
-    public void setCountry(CountryData country_datas) {
-        this.country_datas = country_datas;
+    public void addCountryData(CountryData e) {
+        country_datas.add(e);
     }
     
     public CountryDataset getCountryDataset() {

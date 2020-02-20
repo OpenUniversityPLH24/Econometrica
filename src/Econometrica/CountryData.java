@@ -14,7 +14,6 @@ package Econometrica;
  */
 
 import java.io.Serializable;
-import java.sql.ResultSet;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -123,9 +122,5 @@ public class CountryData implements Serializable {
     public String toString() {
         return "Econometrica.CountryData[ id=" + id + " ]";
     }
-
-    public ResultSet toArray() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+   
 }

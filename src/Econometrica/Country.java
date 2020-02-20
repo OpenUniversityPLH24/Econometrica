@@ -107,5 +107,4 @@ public class Country implements Serializable {
     public String toString() {
         return "Econometrica.Country[ isoCode=" + isoCode + " ]";
     }
-    
 }

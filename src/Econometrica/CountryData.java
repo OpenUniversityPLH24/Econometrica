@@ -121,6 +121,5 @@ public class CountryData implements Serializable {
     @Override
     public String toString() {
         return "Econometrica.CountryData[ id=" + id + " ]";
-    }
-   
+    }   
 }

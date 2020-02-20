@@ -163,6 +163,5 @@ public class CountryDataset implements Serializable {
     @Override
     public String toString() {
         return "Econometrica.CountryDataset[ datasetId=" + datasetId + " ]";
-    }
-    
+    }    
 }

@@ -364,7 +364,7 @@ public class MainForm extends javax.swing.JFrame {
             }
             AllData alldata1 = new AllData(save.openConnection(sql1).getCountry(), save.openConnection(sql1).getCountryData(), save.openConnection(sql1).getCountryDataset());
             String gpddescription = alldata1.getCountryDataset().getDescription();
-            System.out.println(gpddescription);
+            //System.out.println(gpddescription);
             GPDCountry(gpddescription);
             String gpdstartdate = (String) alldata1.getCountryDataset().getStartYear();
             String gpdenddate = (String) alldata1.getCountryDataset().getEndYear();

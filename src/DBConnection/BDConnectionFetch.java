@@ -48,7 +48,7 @@ public class BDConnectionFetch {
         //Open a connection
         conn = DriverManager.getConnection(DB_URL,USER,PASS);
         if (conn != null) {
-            System.out.println("Connected to the database");
+            //System.out.println("Connected to the database");
         }
 
         //Execute a query
@@ -74,8 +74,8 @@ public class BDConnectionFetch {
             String data_year  = rs.getString("DATA_YEAR");
             String value = rs.getString("VALUE");
             //Display values
-            System.out.print("YEAR: " + data_year);
-            System.out.print(", VALUE: " + value + "\n");
+            //System.out.print("YEAR: " + data_year);
+            //System.out.print(", VALUE: " + value + "\n");
             int i=0;
             CountryData a = new CountryData();
             a.setDataYear(data_year);

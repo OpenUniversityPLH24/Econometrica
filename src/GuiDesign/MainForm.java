@@ -393,7 +393,7 @@ public class MainForm extends javax.swing.JFrame {
             model.setRowCount(0);
             AllData alldata2 = new AllData(save.openConnection(sql2).getCountry(), save.openConnection(sql2).getCountryData(), save.openConnection(sql2).getCountryDataset());
             String oildescription = alldata2.getCountryDataset().getDescription();
-            System.out.println(oildescription);
+            //System.out.println(oildescription);
             OilCountry(oildescription);
             String oilstartdate = (String) alldata2.getCountryDataset().getStartYear();
             String oilenddate = (String) alldata2.getCountryDataset().getEndYear();

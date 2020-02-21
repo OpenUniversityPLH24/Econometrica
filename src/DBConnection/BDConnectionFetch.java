@@ -81,7 +81,7 @@ public class BDConnectionFetch {
             a.setDataYear(data_year);
             a.setValue(value);
             alldatavalues.addCountryData(a);
-            System.out.println("Connected to the database 2");
+            //System.out.println("Connected to the database 2");
             i++;
             //Retrieve by column name
             }        

@@ -346,6 +346,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_Plot_ButtonActionPerformed
 
     private void Fetch_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Fetch_ButtonActionPerformed
+        Save_Button.setEnabled(true);
         String selection = (String) CountrySelect.getSelectedItem();
         BDConnectionFetch save = new BDConnectionFetch();
         String sql1;
@@ -382,6 +383,7 @@ public class MainForm extends javax.swing.JFrame {
                 SavedCheckBox.setEnabled(true);
                 SavedCheckBox.doClick();
                 SavedCheckBox.setEnabled(false);
+                Save_Button.setEnabled(false);
             }
          
         } catch (SQLException | ClassNotFoundException ex) {

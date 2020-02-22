@@ -16,8 +16,8 @@ package Econometrica;
 public class JsonGdp {
     private DataSet dataset;
     
-    public JsonGdp(DataSet dataset){
-            this.dataset = dataset;
+    public JsonGdp(DataSet dataset) {
+        this.dataset = dataset;
     }
 
     public DataSet getDataset() {

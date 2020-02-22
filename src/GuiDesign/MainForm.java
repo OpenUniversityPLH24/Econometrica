@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package GuiDesign;
 
 /**
@@ -13,27 +7,30 @@ package GuiDesign;
  * @author Ντάφος Χρήστος
  */
 
-import DBConnection.BDConnectionFetch;
-import Econometrica.AllData;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.io.IOException;
+import javax.persistence.EntityManager;
+import java.util.List;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.swing.table.DefaultTableModel;
+import model.Country;
 
 public class MainForm extends javax.swing.JFrame {
-
-    /**
-     * Creates new form MainForm
-     */
     
+    //Δημιουργία του Entity Manager Factory
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("EconometricaPU");
+    //Δημιουργία του EntityManager
+    EntityManager em = emf.createEntityManager();
+        
     public MainForm() {
         initComponents();
         Countryfilldata();
         SavedCheckBox.setEnabled(false);
+        Save_Button.setEnabled(false);
     }
     
     public void Countryfilldata(){
@@ -61,6 +58,7 @@ public class MainForm extends javax.swing.JFrame {
             }
             catch (IOException e){  
         }
+    
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -96,8 +94,8 @@ public class MainForm extends javax.swing.JFrame {
         GPDDataTable = new javax.swing.JTable();
         OilStartDate = new javax.swing.JLabel();
         OilEndDate = new javax.swing.JLabel();
-        GPDStartDate = new javax.swing.JLabel();
-        GPDEndDate = new javax.swing.JLabel();
+        GDPStartDate = new javax.swing.JLabel();
+        GDPEndDate = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Econometrica");
@@ -254,11 +252,11 @@ public class MainForm extends javax.swing.JFrame {
                                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                                     .addComponent(jLabel10)
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(GPDEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addComponent(GDPEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                                     .addComponent(jLabel9)
                                                     .addGap(18, 18, 18)
-                                                    .addComponent(GPDStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                    .addComponent(GDPStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                         .addGap(26, 26, 26))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(gpdcountry, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -279,9 +277,9 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel5))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(oilcountry, javax.swing.GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
@@ -306,11 +304,11 @@ public class MainForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
-                            .addComponent(GPDStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(GDPStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(GPDEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(GDPEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel10)))))
@@ -346,72 +344,53 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_Plot_ButtonActionPerformed
 
     private void Fetch_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Fetch_ButtonActionPerformed
+        DefaultTableModel GDPmodel = (DefaultTableModel) GPDDataTable.getModel();
+        DefaultTableModel OILmodel = (DefaultTableModel) OilDataTable.getModel();
+        gpdcountry.setText("");
+        GDPStartDate.setText("");
+        GDPEndDate.setText("");
+        oilcountry.setText("");
+        OilStartDate.setText("");
+        OilEndDate.setText("");
+        GDPmodel.setRowCount(0);
+        OILmodel.setRowCount(0);
+        if(SavedCheckBox.isSelected()==true){
+            SavedCheckBox.setEnabled(true);
+            SavedCheckBox.doClick();
+            SavedCheckBox.setEnabled(false);
+        }
         Save_Button.setEnabled(true);
         String selection = (String) CountrySelect.getSelectedItem();
-        BDConnectionFetch save = new BDConnectionFetch();
-        String sql1;
-        String sql2;
-        sql1 = "SELECT * FROM ERGASIA3.COUNTRY, ERGASIA3.COUNTRY_DATA, ERGASIA3.COUNTRY_DATASET WHERE COUNTRY.NAME='" + selection +"' AND COUNTRY_DATA.DATASET=COUNTRY_DATASET.DATASET_ID AND COUNTRY_DATASET.COUNTRY_CODE=COUNTRY.ISO_CODE AND COUNTRY_DATASET.DESCRIPTION LIKE 'DGP%'";
-        sql2 = "SELECT * FROM ERGASIA3.COUNTRY, ERGASIA3.COUNTRY_DATA, ERGASIA3.COUNTRY_DATASET WHERE COUNTRY.NAME='" + selection +"' AND COUNTRY_DATA.DATASET=COUNTRY_DATASET.DATASET_ID AND COUNTRY_DATASET.COUNTRY_CODE=COUNTRY.ISO_CODE AND COUNTRY_DATASET.DESCRIPTION LIKE 'Oil%'";
-
-
-        try {
-            DefaultTableModel model = (DefaultTableModel) GPDDataTable.getModel();
-            model.setRowCount(0);
-            if(SavedCheckBox.isSelected()){
-                SavedCheckBox.setEnabled(true);
-                SavedCheckBox.doClick();
-                SavedCheckBox.setEnabled(false);
+        int i;
+        Query fetchdata = em.createNamedQuery("Country.findByName",Country.class);
+        fetchdata.setParameter("name", selection);
+        List<Country> countries = fetchdata.getResultList();
+        for(Country e : countries){
+            gpdcountry.setText(e.getCountryDatasetList().get(0).getDescription());
+            GDPStartDate.setText(e.getCountryDatasetList().get(0).getStartYear());
+            GDPEndDate.setText(e.getCountryDatasetList().get(0).getEndYear());
+            int gdp=e.getCountryDatasetList().get(0).getCountryDataList().size();
+            for(i=0;i<gdp;i++){
+            String gdpyear = e.getCountryDatasetList().get(0).getCountryDataList().get(i).getDataYear();
+            String ggpvalue = e.getCountryDatasetList().get(0).getCountryDataList().get(i).getValue();
+            GDPmodel.addRow(new Object[]{gdpyear, ggpvalue});
             }
-            AllData alldata1 = new AllData(save.openConnection(sql1).getCountry(), save.openConnection(sql1).getCountryData(), save.openConnection(sql1).getCountryDataset());
-            String gpddescription = alldata1.getCountryDataset().getDescription();
-            //System.out.println(gpddescription);
-            GPDCountry(gpddescription);
-            String gpdstartdate = (String) alldata1.getCountryDataset().getStartYear();
-            String gpdenddate = (String) alldata1.getCountryDataset().getEndYear();
-            GPDStartDate(gpdstartdate);
-            GPDEndDate(gpdenddate);
-            
-            int i=0;
-            while(i<alldata1.getCountryData().size()){
-            String gpdyear = alldata1.getCountryData().get(i).getDataYear();
-            String gpdvalue = alldata1.getCountryData().get(i).getValue();
-            model.addRow(new Object[]{gpdyear, gpdvalue});
-            i++;
-            }            
+            oilcountry.setText(e.getCountryDatasetList().get(1).getDescription());
+            OilStartDate.setText(e.getCountryDatasetList().get(0).getStartYear());
+            OilEndDate.setText(e.getCountryDatasetList().get(0).getEndYear());
+            int oil=e.getCountryDatasetList().get(1).getCountryDataList().size();
+            for(i=0;i<oil;i++){
+            String oilyear = e.getCountryDatasetList().get(1).getCountryDataList().get(i).getDataYear();
+            String oilvalue = e.getCountryDatasetList().get(1).getCountryDataList().get(i).getValue();
+            OILmodel.addRow(new Object[]{oilyear, oilvalue});
+            }
             if(i!=0){
                 SavedCheckBox.setEnabled(true);
                 SavedCheckBox.doClick();
                 SavedCheckBox.setEnabled(false);
                 Save_Button.setEnabled(false);
             }
-         
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        try {
-            DefaultTableModel model = (DefaultTableModel) OilDataTable.getModel();
-            model.setRowCount(0);
-            AllData alldata2 = new AllData(save.openConnection(sql2).getCountry(), save.openConnection(sql2).getCountryData(), save.openConnection(sql2).getCountryDataset());
-            String oildescription = alldata2.getCountryDataset().getDescription();
-            //System.out.println(oildescription);
-            OilCountry(oildescription);
-            String oilstartdate = (String) alldata2.getCountryDataset().getStartYear();
-            String oilenddate = (String) alldata2.getCountryDataset().getEndYear();
-            OilStartDate(oilstartdate);
-            OilEndDate(oilenddate);
-            int i=0;
-            while(i<alldata2.getCountryData().size()){
-            String oilyear = alldata2.getCountryData().get(i).getDataYear();
-            String oilvalue = alldata2.getCountryData().get(i).getValue();
-            model.addRow(new Object[]{oilyear, oilvalue});
-            i++;
-            }
-         
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        }        
     }//GEN-LAST:event_Fetch_ButtonActionPerformed
 
     private void Save_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_ButtonActionPerformed
@@ -436,11 +415,11 @@ public class MainForm extends javax.swing.JFrame {
     }
     
     public void GPDStartDate(String gpdstartdate) {
-        GPDStartDate.setText(String.valueOf(gpdstartdate));
+        GDPStartDate.setText(String.valueOf(gpdstartdate));
     }
     
     public void GPDEndDate(String gpdenddate) {
-        GPDEndDate.setText(String.valueOf(gpdenddate));
+        GDPEndDate.setText(String.valueOf(gpdenddate));
     }
     
     /**
@@ -469,6 +448,7 @@ public class MainForm extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -482,9 +462,9 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> CountrySelect;
     private javax.swing.JButton Delete_Button;
     private javax.swing.JButton Fetch_Button;
+    private javax.swing.JLabel GDPEndDate;
+    private javax.swing.JLabel GDPStartDate;
     private javax.swing.JTable GPDDataTable;
-    private javax.swing.JLabel GPDEndDate;
-    private javax.swing.JLabel GPDStartDate;
     private javax.swing.JTable OilDataTable;
     private javax.swing.JLabel OilEndDate;
     private javax.swing.JLabel OilStartDate;

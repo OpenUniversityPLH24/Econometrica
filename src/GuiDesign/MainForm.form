@@ -97,12 +97,12 @@
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="32767" attributes="0"/>
-                                                  <Component id="GPDEndDate" min="-2" pref="83" max="-2" attributes="0"/>
+                                                  <Component id="GDPEndDate" min="-2" pref="83" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="GPDStartDate" min="-2" pref="83" max="-2" attributes="0"/>
+                                                  <Component id="GDPStartDate" min="-2" pref="83" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -137,9 +137,9 @@
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel5" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -172,12 +172,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jLabel9" pref="20" max="32767" attributes="0"/>
-                          <Component id="GPDStartDate" max="32767" attributes="0"/>
+                          <Component id="GDPStartDate" max="32767" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="GPDEndDate" min="-2" pref="16" max="-2" attributes="0"/>
+                              <Component id="GDPEndDate" min="-2" pref="16" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
@@ -419,9 +419,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="OilEndDate">
     </Component>
-    <Component class="javax.swing.JLabel" name="GPDStartDate">
+    <Component class="javax.swing.JLabel" name="GDPStartDate">
     </Component>
-    <Component class="javax.swing.JLabel" name="GPDEndDate">
+    <Component class="javax.swing.JLabel" name="GDPEndDate">
     </Component>
   </SubComponents>
 </Form>

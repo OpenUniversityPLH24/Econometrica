@@ -14,7 +14,7 @@ package Econometrica;
  */
 
 public class JsonOil {
-  private DataSet dataset;
+    private DataSet dataset;
 
     public JsonOil(DataSet dataset) {
         this.dataset = dataset;
@@ -28,5 +28,4 @@ public class JsonOil {
     public String toString() {
         return "JsonOil{" + "dataset=" + dataset + '}';
     }
-
 }

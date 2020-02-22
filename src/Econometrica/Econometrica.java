@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Econometrica;
 
 /**
@@ -14,39 +8,45 @@ package Econometrica;
  */
 
 import GuiDesign.MainForm;
-import java.io.IOException;
-import javax.swing.JFrame;
-import okhttp3.*;
 import org.json.simple.parser.ParseException;
 import java.io.FileNotFoundException;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class Econometrica {
     
-    /**
-     * @param args the command line arguments
-     * @throws org.json.simple.parser.ParseException
-     * @throws java.io.FileNotFoundException
-     */
     public static void main(String[] args) throws ParseException, FileNotFoundException {
-
-        //Εκκίνηση του Βασικού GUI - Δημιουργία νέου αντικειμένου τύπου MainForm
-        MainForm mainform = new MainForm();
-        //Ορατό στην οθόνη
-        mainform.setVisible(true);
-        mainform.pack();
-        //Ορισμός λειτουργίας του Close Button
-        mainform.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
-
-        /*https://www.quandl.com/api/v3/datasets/WWDI/GRC_NY_GDP_MKTP_CN.json?api_key=j79mQ_zEuVUqFV1DihJT*/
         
-        /*
-        String str = "https://www.quandl.com/api/v3/datasets/";
-        String gdp_country_code = "WWDI/GRC_NY_GDP_MKTP_CN";
-        String oil_country_code = "BP/OIL_CONSUM_GRC";
+
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                //εμφάνιση του κεντρικού μενου
+                MainForm mainForm = new MainForm();
+                mainForm.setVisible(true);
+            }
+        });
+        
+
+        
+        
+
+        
+    
+        /*System.out.println("123");
+        String str1 = "https://www.quandl.com/api/v3/datasets/WWDI/";
+        String str2 = "https://www.quandl.com/api/v3/datasets/";
+        String lastthree = selection.substring(selection.length() - 3);
+        
+        
+        String gdp_code = "_NY_GDP_MKTP_CN";
+        String oil_code = "BP/OIL_CONSUM_";
         String apikey = ".json?api_key=j79mQ_zEuVUqFV1DihJT";
         
-        String url1 = str+gdp_country_code+apikey;
-        String url2 = str+oil_country_code+apikey;
+        String url1 = str1+lastthree+gdp_code+apikey;
+        String url2 = str2+oil_code+lastthree+apikey;
         
         OkHttpClient client = new OkHttpClient();
 
@@ -61,7 +61,9 @@ public class Econometrica {
                 parse1.parseData(responseString1);
                 }
             } catch (IOException e) {
-        }
+        }       catch (ParseException ex) {
+                    Logger.getLogger(MainForm_.class.getName()).log(Level.SEVERE, null, ex);
+                }
         
         try (Response response2 = client.newCall(request2).execute()) {
             if(response2.isSuccessful() && response2.body() != null) {
@@ -71,6 +73,12 @@ public class Econometrica {
                 parse2.parseData(responseString2);
                 }
             } catch (IOException e) {
-        }*/
+        }       catch (ParseException ex) {   
+                    Logger.getLogger(MainForm_.class.getName()).log(Level.SEVERE, null, ex);
+                }   
+                */
+        
+        
+        
     }
 }

@@ -20,12 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import model.Country;
 
 public class MainForm extends javax.swing.JFrame {
-    
-    //Δημιουργία του Entity Manager Factory
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("EconometricaPU");
-    //Δημιουργία του EntityManager
-    EntityManager em = emf.createEntityManager();
-        
+ 
     public MainForm() {
         initComponents();
         Countryfilldata();
@@ -344,6 +339,11 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_Plot_ButtonActionPerformed
 
     private void Fetch_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Fetch_ButtonActionPerformed
+        //Δημιουργία του Entity Manager Factory
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("EconometricaPU");
+        //Δημιουργία του EntityManager
+        EntityManager em = emf.createEntityManager();
+        
         DefaultTableModel GDPmodel = (DefaultTableModel) GPDDataTable.getModel();
         DefaultTableModel OILmodel = (DefaultTableModel) OilDataTable.getModel();
         gpdcountry.setText("");
@@ -391,6 +391,8 @@ public class MainForm extends javax.swing.JFrame {
                 Save_Button.setEnabled(false);
             }
         }
+        em.close();
+        emf.close();
     }//GEN-LAST:event_Fetch_ButtonActionPerformed
 
     private void Save_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_ButtonActionPerformed

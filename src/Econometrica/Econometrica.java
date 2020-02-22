@@ -10,9 +10,6 @@ package Econometrica;
 import GuiDesign.MainForm;
 import org.json.simple.parser.ParseException;
 import java.io.FileNotFoundException;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public class Econometrica {
     

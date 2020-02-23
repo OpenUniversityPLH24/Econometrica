@@ -412,7 +412,6 @@ public class MainForm extends javax.swing.JFrame {
             String line;  
             String splitBy = ";"; 
             String csv = "iso-countries.csv";
-            String iso = null;
             String code = null;
             try   
                 {  
@@ -429,7 +428,6 @@ public class MainForm extends javax.swing.JFrame {
                     csvData[a][3] = country[3];                   
                     if(csvData[a][0] == null ? selection == null : csvData[a][0].equals(selection)){
                         code = csvData[a][2];
-                        iso = csvData[a][3];
                         break;
                     }
                     a++;

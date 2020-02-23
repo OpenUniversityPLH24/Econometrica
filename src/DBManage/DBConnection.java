@@ -11,8 +11,9 @@ import javax.persistence.Persistence;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Losandas
+ * @author Μπορότης Βασίλειος
+ * @author Ντουλάκης Ευστράτιος
+ * @author Ντάφος Χρήστος
  */
 public class DBConnection {
     

@@ -408,7 +408,7 @@ public class MainForm extends javax.swing.JFrame {
                 }
             }
         }else{
-            JOptionPane.showMessageDialog(null, "Τα δεδομένα δεν υπάρχουν αποθηευμένα στη ΒΔ."+"\n"+"Θα γίει λήψη από τον ιστότοπο quandl.com");
+            JOptionPane.showMessageDialog(null, "Τα δεδομένα δεν υπάρχουν αποθηκευμένα στη ΒΔ."+"\n"+"Θα γίει λήψη από τον ιστότοπο quandl.com");
             String line;  
             String splitBy = ";"; 
             String csv = "iso-countries.csv";

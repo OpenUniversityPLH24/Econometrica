@@ -7,17 +7,31 @@ package GuiDesign;
  * @author Ντάφος Χρήστος
  */
 
+import Econometrica.DataSet;
+import Econometrica.JsonGdp;
+import Econometrica.JsonOil;
+import com.google.gson.Gson;
+import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import javax.swing.JOptionPane;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import javax.persistence.EntityManager;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.Country;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import static org.eclipse.persistence.config.ResultType.Map;
+import org.eclipse.persistence.jpa.jpql.Assert;
 
 public class MainForm extends javax.swing.JFrame {
  
@@ -220,12 +234,13 @@ public class MainForm extends javax.swing.JFrame {
                                             .addGap(0, 0, Short.MAX_VALUE))
                                         .addGroup(layout.createSequentialGroup()
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(Save_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGap(68, 68, 68)
-                                                    .addComponent(Plot_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(oilcountry, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(oilcountry, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                        .addComponent(Save_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGap(68, 68, 68)
+                                                        .addComponent(Plot_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel6)
@@ -236,12 +251,15 @@ public class MainForm extends javax.swing.JFrame {
                                         .addComponent(Delete_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(SavedCheckBox))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                            .addComponent(gpdcountry, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))
+                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel5)
                                             .addComponent(jLabel4)
-                                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel7)
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -252,10 +270,7 @@ public class MainForm extends javax.swing.JFrame {
                                                     .addComponent(jLabel9)
                                                     .addGap(18, 18, 18)
                                                     .addComponent(GDPStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                        .addGap(26, 26, 26))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(gpdcountry, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                                        .addGap(147, 147, 147)))))
                         .addGap(34, 34, 34))))
         );
         layout.setVerticalGroup(
@@ -364,32 +379,106 @@ public class MainForm extends javax.swing.JFrame {
         int i;
         Query fetchdata = em.createNamedQuery("Country.findByName",Country.class);
         fetchdata.setParameter("name", selection);
-        List<Country> countries = fetchdata.getResultList();
-        for(Country e : countries){
-            gpdcountry.setText(e.getCountryDatasetList().get(0).getDescription());
-            GDPStartDate.setText(e.getCountryDatasetList().get(0).getStartYear());
-            GDPEndDate.setText(e.getCountryDatasetList().get(0).getEndYear());
-            int gdp=e.getCountryDatasetList().get(0).getCountryDataList().size();
-            for(i=0;i<gdp;i++){
-            String gdpyear = e.getCountryDatasetList().get(0).getCountryDataList().get(i).getDataYear();
-            String ggpvalue = e.getCountryDatasetList().get(0).getCountryDataList().get(i).getValue();
-            GDPmodel.addRow(new Object[]{gdpyear, ggpvalue});
+        List<Country> countries = fetchdata.getResultList();        
+        if(!countries.isEmpty()){
+            for(Country e : countries){
+                gpdcountry.setText(e.getCountryDatasetList().get(0).getDescription());
+                GDPStartDate.setText(e.getCountryDatasetList().get(0).getStartYear());
+                GDPEndDate.setText(e.getCountryDatasetList().get(0).getEndYear());
+                int gdp=e.getCountryDatasetList().get(0).getCountryDataList().size();
+                for(i=0;i<gdp;i++){
+                String gdpyear = e.getCountryDatasetList().get(0).getCountryDataList().get(i).getDataYear();
+                String ggpvalue = e.getCountryDatasetList().get(0).getCountryDataList().get(i).getValue();
+                GDPmodel.addRow(new Object[]{gdpyear, ggpvalue});
+                }
+                oilcountry.setText(e.getCountryDatasetList().get(1).getDescription());
+                OilStartDate.setText(e.getCountryDatasetList().get(0).getStartYear());
+                OilEndDate.setText(e.getCountryDatasetList().get(0).getEndYear());
+                int oil=e.getCountryDatasetList().get(1).getCountryDataList().size();
+                for(i=0;i<oil;i++){
+                    String oilyear = e.getCountryDatasetList().get(1).getCountryDataList().get(i).getDataYear();
+                    String oilvalue = e.getCountryDatasetList().get(1).getCountryDataList().get(i).getValue();
+                    OILmodel.addRow(new Object[]{oilyear, oilvalue});
+                }
+                if(i!=0){
+                    SavedCheckBox.setEnabled(true);
+                    SavedCheckBox.doClick();
+                    SavedCheckBox.setEnabled(false);
+                    Save_Button.setEnabled(false);
+                }
             }
-            oilcountry.setText(e.getCountryDatasetList().get(1).getDescription());
-            OilStartDate.setText(e.getCountryDatasetList().get(0).getStartYear());
-            OilEndDate.setText(e.getCountryDatasetList().get(0).getEndYear());
-            int oil=e.getCountryDatasetList().get(1).getCountryDataList().size();
-            for(i=0;i<oil;i++){
-            String oilyear = e.getCountryDatasetList().get(1).getCountryDataList().get(i).getDataYear();
-            String oilvalue = e.getCountryDatasetList().get(1).getCountryDataList().get(i).getValue();
-            OILmodel.addRow(new Object[]{oilyear, oilvalue});
+        }else{
+            System.out.println("Downloading data from quandl.com");
+            String line;  
+            String splitBy = ";"; 
+            String csv = "iso-countries.csv";
+            String iso = null;
+            String code = null;
+            try   
+                {  
+                //parsing a CSV file into BufferedReader class constructor  
+                BufferedReader br = new BufferedReader(new FileReader(csv));
+                br.readLine();
+                while ((line = br.readLine())!= null){   //returns a Boolean value  
+                    String[] country = line.split(splitBy);    // use comma as separator  
+                    String[][] csvData = new String[250][4];
+                    int a = 0;
+                    csvData[a][0] = country[0];
+                    csvData[a][1] = country[1];
+                    csvData[a][2] = country[2];
+                    csvData[a][3] = country[3];                   
+                    if(csvData[a][0] == null ? selection == null : csvData[a][0].equals(selection)){
+                        code = csvData[a][2];
+                        iso = csvData[a][3];
+                        break;
+                    }
+                    a++;
+                }  
             }
-            if(i!=0){
-                SavedCheckBox.setEnabled(true);
-                SavedCheckBox.doClick();
-                SavedCheckBox.setEnabled(false);
-                Save_Button.setEnabled(false);
+            catch (IOException e){  
+        }        
+
+            String str1 = "https://www.quandl.com/api/v3/datasets/WWDI/";
+            String str2 = "https://www.quandl.com/api/v3/datasets/";
+            String gdp_code = "_NY_GDP_MKTP_CN";
+            String oil_code = "BP/OIL_CONSUM_";
+            String apikey = ".json?api_key=j79mQ_zEuVUqFV1DihJT";
+        
+            String url1 = str1+code+gdp_code+apikey;
+            String url2 = str2+oil_code+code+apikey;
+            OkHttpClient client = new OkHttpClient();
+            Request request1 = new Request.Builder().url(url1).build();
+            Request request2 = new Request.Builder().url(url2).build();
+            try (Response response2 = client.newCall(request2).execute()) {
+                if(response2.isSuccessful() && response2.body() != null) {
+                    Gson gsonoil = new Gson();
+                    JsonOil JsonOil = gsonoil.fromJson(response2.body().string(), JsonOil.class);
+                    oilcountry.setText(JsonOil.getDataset().getName());
+                    OilStartDate.setText(JsonOil.getDataset().getStartDate());
+                    OilEndDate.setText(JsonOil.getDataset().getEndDate());
+                    int oil=JsonOil.getDataset().getData().size();
+                    for(i=0;i<oil;i++){
+                        DecimalFormat df2 = new DecimalFormat("#.#######");
+                        OILmodel.addRow(new Object[]{(JsonOil.getDataset().getData().get(i).get(0).toString()).substring(0, 4), df2.format(JsonOil.getDataset().getData().get(i).get(1))});
+                    }
+                }
+                } catch (IOException e) {
             }
+            try (Response response1 = client.newCall(request1).execute()) {
+                if(response1.isSuccessful() && response1.body() != null) {
+                    Gson gsongpd = new Gson();
+                    JsonGdp JsonGdp = gsongpd.fromJson(response1.body().string(), JsonGdp.class);
+                    gpdcountry.setText(JsonGdp.getDataset().getName());
+                    GDPStartDate.setText(JsonGdp.getDataset().getStartDate());
+                    GDPEndDate.setText(JsonGdp.getDataset().getEndDate());
+                    int gdp=JsonGdp.getDataset().getData().size();
+                    for(i=0;i<gdp;i++){
+                        DecimalFormat df2 = new DecimalFormat("#.##");
+                        GDPmodel.addRow(new Object[]{(JsonGdp.getDataset().getData().get(i).get(0).toString()).substring(0, 4), df2.format(JsonGdp.getDataset().getData().get(i).get(1))});
+                    }
+                }
+                } catch (IOException e) {
+            }  
         }
         em.close();
         emf.close();

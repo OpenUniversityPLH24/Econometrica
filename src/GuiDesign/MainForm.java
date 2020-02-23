@@ -7,11 +7,9 @@ package GuiDesign;
  * @author Ντάφος Χρήστος
  */
 
-import Econometrica.DataSet;
 import Econometrica.JsonGdp;
 import Econometrica.JsonOil;
 import com.google.gson.Gson;
-import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import javax.swing.JOptionPane;
@@ -22,16 +20,11 @@ import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.swing.JLabel;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.Country;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
-import static org.eclipse.persistence.config.ResultType.Map;
-import org.eclipse.persistence.jpa.jpql.Assert;
 
 public class MainForm extends javax.swing.JFrame {
  

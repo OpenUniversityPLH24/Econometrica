@@ -22,6 +22,8 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.swing.table.DefaultTableModel;
 import model.Country;
+import model.CountryData;
+import model.CountryDataset;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -337,6 +339,27 @@ public class MainForm extends javax.swing.JFrame {
 
     private void Delete_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Delete_ButtonActionPerformed
         int verify = JOptionPane.showConfirmDialog(rootPane, "Είσαι βέβαιος για τη διαγραφή;");
+        if(verify == JOptionPane.NO_OPTION)
+            System.exit(0);
+        if (verify == JOptionPane.YES_OPTION) {
+
+            try {
+                EntityManagerFactory emf = Persistence.createEntityManagerFactory("EconometricaPU");
+                EntityManager em = emf.createEntityManager();
+                em.getTransaction().begin();
+                em.createNamedQuery("CountryData.deleteAll").executeUpdate();
+                em.createNamedQuery("CountryDataset.deleteAll").executeUpdate();
+                em.createNamedQuery("Country.deleteAll").executeUpdate();
+                em.createNativeQuery("ALTER TABLE Country ALTER COLUMN ID RESTART WITH 1");
+                em.getTransaction().commit();
+                em.close();
+                emf.close();
+                JOptionPane.showMessageDialog(null, "Τα δεδομένα διαγράφηκαν");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Τα δεδομένα δεν διαγράφηκαν");
+            }
+
+        }
     }//GEN-LAST:event_Delete_ButtonActionPerformed
 
     private void Plot_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Plot_ButtonActionPerformed
@@ -393,6 +416,8 @@ public class MainForm extends javax.swing.JFrame {
                     String oilvalue = e.getCountryDatasetList().get(1).getCountryDataList().get(i).getValue();
                     OILmodel.addRow(new Object[]{oilyear, oilvalue});
                 }
+                em.close();
+                emf.close();
                 if(i!=0){
                     SavedCheckBox.setEnabled(true);
                     SavedCheckBox.doClick();
@@ -428,7 +453,8 @@ public class MainForm extends javax.swing.JFrame {
             }
             catch (IOException e){  
         }        
-
+            
+            
             String str1 = "https://www.quandl.com/api/v3/datasets/WWDI/";
             String str2 = "https://www.quandl.com/api/v3/datasets/";
             String gdp_code = "_NY_GDP_MKTP_CN";
@@ -449,8 +475,8 @@ public class MainForm extends javax.swing.JFrame {
                     OilEndDate.setText(JsonOil.getDataset().getEndDate());
                     int oil=JsonOil.getDataset().getData().size();
                     for(i=0;i<oil;i++){
-                        DecimalFormat df2 = new DecimalFormat("#.#######");
-                        OILmodel.addRow(new Object[]{(JsonOil.getDataset().getData().get(i).get(0).toString()).substring(0, 4), df2.format(JsonOil.getDataset().getData().get(i).get(1))});
+                        
+                        OILmodel.addRow(new Object[]{(JsonOil.getDataset().getData().get(i).get(0).toString()).substring(0, 4), JsonOil.getDataset().getData().get(i).get(1)});
                     }
                 }
                 } catch (IOException e) {
@@ -464,15 +490,14 @@ public class MainForm extends javax.swing.JFrame {
                     GDPEndDate.setText(JsonGdp.getDataset().getEndDate());
                     int gdp=JsonGdp.getDataset().getData().size();
                     for(i=0;i<gdp;i++){
-                        DecimalFormat df2 = new DecimalFormat("#.##");
-                        GDPmodel.addRow(new Object[]{(JsonGdp.getDataset().getData().get(i).get(0).toString()).substring(0, 4), df2.format(JsonGdp.getDataset().getData().get(i).get(1))});
+                        DecimalFormat df1 = new DecimalFormat("#.#");
+                        GDPmodel.addRow(new Object[]{(JsonGdp.getDataset().getData().get(i).get(0).toString()).substring(0, 4), df1.format(JsonGdp.getDataset().getData().get(i).get(1))});
                     }
                 }
                 } catch (IOException e) {
             }  
         }
-        em.close();
-        emf.close();
+        
     }//GEN-LAST:event_Fetch_ButtonActionPerformed
 
     private void Save_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_ButtonActionPerformed

@@ -26,7 +26,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Country.findAll", query = "SELECT c FROM Country c")
     , @NamedQuery(name = "Country.findByIsoCode", query = "SELECT c FROM Country c WHERE c.isoCode = :isoCode")
-    , @NamedQuery(name = "Country.findByName", query = "SELECT c FROM Country c WHERE c.name = :name")})
+    , @NamedQuery(name = "Country.findByName", query = "SELECT c FROM Country c WHERE c.name = :name")
+    , @NamedQuery(name = "Country.deleteAll", query = "DELETE FROM Country")})
 public class Country implements Serializable {
 
     private static final long serialVersionUID = 1L;

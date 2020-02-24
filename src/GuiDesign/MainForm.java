@@ -456,18 +456,18 @@ public class MainForm extends javax.swing.JFrame {
                     if(csvData[a][0] == null ? selection == null : csvData[a][0].equals(selection)){
                         code = csvData[a][2];
                         break;
-                    }
-                    a++;
+                     }
+                     a++;
                 }  
             }
             catch (IOException e){  
-        }
+            }
             String str1 = "https://www.quandl.com/api/v3/datasets/WWDI/";
             String str2 = "https://www.quandl.com/api/v3/datasets/";
             String gdp_code = "_NY_GDP_MKTP_CN";
             String oil_code = "BP/OIL_CONSUM_";
             String apikey = ".json?api_key=j79mQ_zEuVUqFV1DihJT";
-        
+
             String url1 = str1+code+gdp_code+apikey;
             String url2 = str2+oil_code+code+apikey;
             OkHttpClient client = new OkHttpClient();
@@ -486,8 +486,8 @@ public class MainForm extends javax.swing.JFrame {
                         OILmodel.addRow(new Object[]{(JsonOil.getDataset().getData().get(i).get(0).toString()).substring(0, 4), df2.format(JsonOil.getDataset().getData().get(i).get(1))});
                     }
                 }
-                } catch (IOException e) {
-            }
+            } catch (IOException e) {
+        }
             try (Response response1 = client.newCall(request1).execute()) {
                 if(response1.isSuccessful() && response1.body() != null) {
                     Gson gsongpd = new Gson();
@@ -501,11 +501,11 @@ public class MainForm extends javax.swing.JFrame {
                         GDPmodel.addRow(new Object[]{(JsonGdp.getDataset().getData().get(i).get(0).toString()).substring(0, 4), df2.format(JsonGdp.getDataset().getData().get(i).get(1))});
                     }
                 }
-                } catch (IOException e) {
-            }  
-        }
-        em.close();
-        emf.close();
+            } catch (IOException e) {
+        }  
+    }
+    em.close();
+    emf.close();
     }//GEN-LAST:event_Fetch_ButtonActionPerformed
 
     private void Save_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_ButtonActionPerformed

@@ -502,8 +502,8 @@ public class MainForm extends javax.swing.JFrame {
                     OilEndDate.setText(JsonOil.getDataset().getEndDate());
                     int oil=JsonOil.getDataset().getData().size();
                     for(i=0;i<oil;i++){
-                        
-                        OILmodel.addRow(new Object[]{(JsonOil.getDataset().getData().get(i).get(0).toString()).substring(0, 4), JsonOil.getDataset().getData().get(i).get(1)});
+                        DecimalFormat df1 = new DecimalFormat("#.########");
+                        OILmodel.addRow(new Object[]{(JsonOil.getDataset().getData().get(i).get(0).toString()).substring(0, 4), df1.format(JsonOil.getDataset().getData().get(i).get(1))});
                     }
                 }
             } catch (IOException e) {
@@ -517,8 +517,8 @@ public class MainForm extends javax.swing.JFrame {
                     GDPEndDate.setText(JsonGdp.getDataset().getEndDate());
                     int gdp=JsonGdp.getDataset().getData().size();
                     for(i=0;i<gdp;i++){
-                        DecimalFormat df1 = new DecimalFormat("#.#");
-                        GDPmodel.addRow(new Object[]{(JsonGdp.getDataset().getData().get(i).get(0).toString()).substring(0, 4), df1.format(JsonGdp.getDataset().getData().get(i).get(1))});
+                        DecimalFormat df2 = new DecimalFormat("#.#");
+                        GDPmodel.addRow(new Object[]{(JsonGdp.getDataset().getData().get(i).get(0).toString()).substring(0, 4), df2.format(JsonGdp.getDataset().getData().get(i).get(1))});
                     }
                 }
             } catch (IOException e) {

@@ -461,8 +461,7 @@ public class MainForm extends javax.swing.JFrame {
                 }  
             }
             catch (IOException e){  
-        }        
-
+        }
             String str1 = "https://www.quandl.com/api/v3/datasets/WWDI/";
             String str2 = "https://www.quandl.com/api/v3/datasets/";
             String gdp_code = "_NY_GDP_MKTP_CN";
@@ -514,16 +513,11 @@ public class MainForm extends javax.swing.JFrame {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("EconometricaPU");
         //Δημιουργία του EntityManager
         EntityManager em = emf.createEntityManager();
-        String selection = (String) CountrySelect.getSelectedItem();
-        
-        String gdpCountry = (String) gpdcountry.getText();
-        
-        String gdpStartDate = (String) GDPStartDate.getText();
-        
-        String gdpEndDate = (String) GDPEndDate.getText();
-        
-        String oilCountry = (String) oilcountry.getText();
-        
+        String selection = (String) CountrySelect.getSelectedItem();        
+        String gdpCountry = (String) gpdcountry.getText();        
+        String gdpStartDate = (String) GDPStartDate.getText();        
+        String gdpEndDate = (String) GDPEndDate.getText();        
+        String oilCountry = (String) oilcountry.getText();        
         String oilStartDate = (String) OilStartDate.getText();
         String oilEndDate = (String) OilEndDate.getText();
 
@@ -550,7 +544,7 @@ public class MainForm extends javax.swing.JFrame {
                 a++;
             }  
         } catch (IOException e){  
-        } 
+    } 
 
         em.getTransaction().begin();
         
@@ -571,8 +565,7 @@ public class MainForm extends javax.swing.JFrame {
                 em.persist(cdatagdp);
                 em.flush();
             }
-        }
-            
+        }            
             if(!oilCountry.isEmpty()){
                 CountryDataset cdatasetoil = new CountryDataset(null, oilStartDate.substring(0, 4), oilCountry, oilEndDate.substring(0, 4));
                 cdatasetoil.setCountryCode(country);

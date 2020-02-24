@@ -63,7 +63,6 @@ public class MainForm extends javax.swing.JFrame {
             }
             catch (IOException e){  
         }
-    
     }
     /**
      * This method is called from within the constructor to initialize the form.

@@ -7,6 +7,7 @@ package GuiDesign;
  * @author Ντάφος Χρήστος
  */
 
+import Econometrica.DataSet;
 import Econometrica.JsonGdp;
 import Econometrica.JsonOil;
 import com.google.gson.Gson;
@@ -22,6 +23,8 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.swing.table.DefaultTableModel;
 import model.Country;
+import model.CountryData;
+import model.CountryDataset;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -33,10 +36,10 @@ public class MainForm extends javax.swing.JFrame {
         Countryfilldata();
         SavedCheckBox.setEnabled(false);
         Save_Button.setEnabled(false);
+                
     }
     
     public void Countryfilldata(){
-    
     String line;  
     String splitBy = ";"; 
     String csv = "iso-countries.csv"; 
@@ -375,31 +378,62 @@ public class MainForm extends javax.swing.JFrame {
         List<Country> countries = fetchdata.getResultList();        
         if(!countries.isEmpty()){
             for(Country e : countries){
-                gpdcountry.setText(e.getCountryDatasetList().get(0).getDescription());
-                GDPStartDate.setText(e.getCountryDatasetList().get(0).getStartYear());
-                GDPEndDate.setText(e.getCountryDatasetList().get(0).getEndYear());
-                int gdp=e.getCountryDatasetList().get(0).getCountryDataList().size();
-                for(i=0;i<gdp;i++){
-                String gdpyear = e.getCountryDatasetList().get(0).getCountryDataList().get(i).getDataYear();
-                String ggpvalue = e.getCountryDatasetList().get(0).getCountryDataList().get(i).getValue();
-                GDPmodel.addRow(new Object[]{gdpyear, ggpvalue});
-                }
-                oilcountry.setText(e.getCountryDatasetList().get(1).getDescription());
-                OilStartDate.setText(e.getCountryDatasetList().get(0).getStartYear());
-                OilEndDate.setText(e.getCountryDatasetList().get(0).getEndYear());
-                int oil=e.getCountryDatasetList().get(1).getCountryDataList().size();
-                for(i=0;i<oil;i++){
-                    String oilyear = e.getCountryDatasetList().get(1).getCountryDataList().get(i).getDataYear();
-                    String oilvalue = e.getCountryDatasetList().get(1).getCountryDataList().get(i).getValue();
-                    OILmodel.addRow(new Object[]{oilyear, oilvalue});
-                }
-                if(i!=0){
-                    SavedCheckBox.setEnabled(true);
-                    SavedCheckBox.doClick();
-                    SavedCheckBox.setEnabled(false);
-                    Save_Button.setEnabled(false);
+                int size = countries.get(0).getCountryDatasetList().size();
+                if(size==1){
+                    if(countries.get(0).getCountryDatasetList().get(0).getDescription().contains("GDP")){
+                        gpdcountry.setText(e.getCountryDatasetList().get(0).getDescription());
+                        GDPStartDate.setText(e.getCountryDatasetList().get(0).getStartYear());
+                        GDPEndDate.setText(e.getCountryDatasetList().get(0).getEndYear());
+                        int gdp=e.getCountryDatasetList().get(0).getCountryDataList().size();
+                        for(i=0;i<gdp;i++){
+                            String gdpyear = e.getCountryDatasetList().get(0).getCountryDataList().get(i).getDataYear();
+                            String gdpvalue = e.getCountryDatasetList().get(0).getCountryDataList().get(i).getValue();
+                            GDPmodel.addRow(new Object[]{gdpyear, gdpvalue});
+                        }
+                        if(i!=0){
+                            SavedCheckBox.setEnabled(true);
+                            SavedCheckBox.doClick();
+                            SavedCheckBox.setEnabled(false);
+                            Save_Button.setEnabled(false);
+                        }
+                    }
+                }else if(size==2){
+                    if(countries.get(0).getCountryDatasetList().get(0).getDescription().contains("GDP")){
+                        gpdcountry.setText(e.getCountryDatasetList().get(0).getDescription());
+                        GDPStartDate.setText(e.getCountryDatasetList().get(0).getStartYear());
+                        GDPEndDate.setText(e.getCountryDatasetList().get(0).getEndYear());
+                        int gdp=e.getCountryDatasetList().get(0).getCountryDataList().size();
+                        for(i=0;i<gdp;i++){
+                            String gdpyear = e.getCountryDatasetList().get(0).getCountryDataList().get(i).getDataYear();
+                            String gdpvalue = e.getCountryDatasetList().get(0).getCountryDataList().get(i).getValue();
+                            GDPmodel.addRow(new Object[]{gdpyear, gdpvalue});
+                        }
+                        if(i!=0){
+                            SavedCheckBox.setEnabled(true);
+                            SavedCheckBox.doClick();
+                            SavedCheckBox.setEnabled(false);
+                            Save_Button.setEnabled(false);
+                        }
+                    }
+                if(countries.get(0).getCountryDatasetList().get(1).getDescription().contains("Oil")){
+                    oilcountry.setText(e.getCountryDatasetList().get(1).getDescription());
+                    OilStartDate.setText(e.getCountryDatasetList().get(1).getStartYear());
+                    OilEndDate.setText(e.getCountryDatasetList().get(1).getEndYear());
+                    int oil=e.getCountryDatasetList().get(1).getCountryDataList().size();
+                    for(i=0;i<oil;i++){
+                        String oilyear = e.getCountryDatasetList().get(1).getCountryDataList().get(i).getDataYear();
+                        String oilvalue = e.getCountryDatasetList().get(1).getCountryDataList().get(i).getValue();
+                        OILmodel.addRow(new Object[]{oilyear, oilvalue});
+                    }
+                    if(i!=0){
+                        SavedCheckBox.setEnabled(true);
+                        SavedCheckBox.doClick();
+                        SavedCheckBox.setEnabled(false);
+                        Save_Button.setEnabled(false);
+                    }
                 }
             }
+        }
         }else{
             JOptionPane.showMessageDialog(null, "Τα δεδομένα δεν υπάρχουν αποθηκευμένα στη ΒΔ."+"\n"+"Θα γίνει λήψη από τον ιστότοπο quandl.com");
             String line;  
@@ -476,8 +510,93 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_Fetch_ButtonActionPerformed
 
     private void Save_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_ButtonActionPerformed
-        //String savedata = (String) CountrySelect.getSelectedItem();
+        //Δημιουργία του Entity Manager Factory
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("EconometricaPU");
+        //Δημιουργία του EntityManager
+        EntityManager em = emf.createEntityManager();
+        String selection = (String) CountrySelect.getSelectedItem();
+        
+        String gdpCountry = (String) gpdcountry.getText();
+        
+        String gdpStartDate = (String) GDPStartDate.getText();
+        
+        String gdpEndDate = (String) GDPEndDate.getText();
+        
+        String oilCountry = (String) oilcountry.getText();
+        
+        String oilStartDate = (String) OilStartDate.getText();
+        String oilEndDate = (String) OilEndDate.getText();
 
+        String line;  
+        String splitBy = ";"; 
+        String csv = "iso-countries.csv";
+        String iso = null;
+        try{  
+            //parsing a CSV file into BufferedReader class constructor  
+            BufferedReader br = new BufferedReader(new FileReader(csv));
+            br.readLine();
+            while ((line = br.readLine())!= null){   //returns a Boolean value  
+                String[] country = line.split(splitBy);    // use comma as separator  
+                String[][] csvData = new String[250][4];
+                int a = 0;
+                csvData[a][0] = country[0];
+                csvData[a][1] = country[1];
+                csvData[a][2] = country[2];
+                csvData[a][3] = country[3];                   
+                if(csvData[a][0] == null ? selection == null : csvData[a][0].equals(selection)){
+                    iso = csvData[a][3];
+                    break;
+                }
+                a++;
+            }  
+        } catch (IOException e){  
+        } 
+
+        em.getTransaction().begin();
+        
+        Country country = new Country (iso, selection);
+        em.persist(country);
+        em.flush();        
+        if(!gdpCountry.isEmpty()){
+            CountryDataset cdatasetgdp = new CountryDataset(null, gdpStartDate.substring(0, 4), gdpCountry, gdpEndDate.substring(0, 4));
+            cdatasetgdp.setCountryCode(country);
+            cdatasetgdp.setDescription(gdpCountry);
+            em.persist(cdatasetgdp);
+            em.flush();
+            for(int i=0;i<GPDDataTable.getRowCount();i++){
+                String gpddate = (String) GPDDataTable.getValueAt(i, 0);
+                String gpdvalue = (String) GPDDataTable.getValueAt(i, 1);
+                CountryData cdatagdp = new CountryData(null, gpddate, gpdvalue);
+                cdatagdp.setDataset(cdatasetgdp);
+                em.persist(cdatagdp);
+                em.flush();
+            }
+        }
+            
+            if(!oilCountry.isEmpty()){
+                CountryDataset cdatasetoil = new CountryDataset(null, oilStartDate.substring(0, 4), oilCountry, oilEndDate.substring(0, 4));
+                cdatasetoil.setCountryCode(country);
+                cdatasetoil.setDescription(oilCountry);
+                em.persist(cdatasetoil);
+                em.flush();
+                for(int j=0;j<OilDataTable.getRowCount();j++){
+                String oildate = (String) OilDataTable.getValueAt(j, 0);
+                String oilvalue = (String) OilDataTable.getValueAt(j, 1);
+                CountryData cdataoil = new CountryData(null, oildate, oilvalue);
+                cdataoil.setDataset(cdatasetoil);
+                em.persist(cdataoil);
+                em.flush();
+            }
+        }
+        SavedCheckBox.setEnabled(true);
+        SavedCheckBox.doClick();
+        SavedCheckBox.setEnabled(false);
+        Save_Button.setEnabled(false);
+
+        em.getTransaction().commit();
+        em.close();
+        emf.close();
+        
     }//GEN-LAST:event_Save_ButtonActionPerformed
 
     public void OilCountry(String selection) {

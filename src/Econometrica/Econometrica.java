@@ -8,8 +8,8 @@ package Econometrica;
  */
 
 import GuiDesign.MainForm;
-import org.json.simple.parser.ParseException;
 import java.io.FileNotFoundException;
+import java.text.ParseException;
 
 public class Econometrica {
     

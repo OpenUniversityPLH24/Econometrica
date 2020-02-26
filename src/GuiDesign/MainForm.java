@@ -7,7 +7,6 @@ package GuiDesign;
  * @author Ντάφος Χρήστος
  */
 
-import Econometrica.DataSet;
 import Econometrica.JsonGdp;
 import Econometrica.JsonOil;
 import com.google.gson.Gson;
@@ -351,6 +350,21 @@ public class MainForm extends javax.swing.JFrame {
                 em.createNamedQuery("CountryDataset.deleteAll").executeUpdate();
                 em.createNamedQuery("Country.deleteAll").executeUpdate();
                 em.createNativeQuery("ALTER TABLE Country ALTER COLUMN ID RESTART WITH 1");
+                DefaultTableModel GDPmodel = (DefaultTableModel) GPDDataTable.getModel();
+            DefaultTableModel OILmodel = (DefaultTableModel) OilDataTable.getModel();
+            gpdcountry.setText("");
+            GDPStartDate.setText("");
+            GDPEndDate.setText("");
+            oilcountry.setText("");
+            OilStartDate.setText("");
+            OilEndDate.setText("");
+            GDPmodel.setRowCount(0);
+            OILmodel.setRowCount(0);
+            if(SavedCheckBox.isSelected()==true){
+                SavedCheckBox.setEnabled(true);
+                SavedCheckBox.doClick();
+                SavedCheckBox.setEnabled(false);
+            }
                 em.getTransaction().commit();
                 em.close();
                 emf.close();
@@ -385,18 +399,18 @@ public class MainForm extends javax.swing.JFrame {
         OilEndDate.setText("");
         GDPmodel.setRowCount(0);
         OILmodel.setRowCount(0);
-        if(SavedCheckBox.isSelected()==true){
-            SavedCheckBox.setEnabled(true);
-            SavedCheckBox.doClick();
-            SavedCheckBox.setEnabled(false);
-        }
-        Save_Button.setEnabled(true);
+
         String selection = (String) CountrySelect.getSelectedItem();
         int i;
         Query fetchdata = em.createNamedQuery("Country.findByName",Country.class);
         fetchdata.setParameter("name", selection);
         List<Country> countries = fetchdata.getResultList();        
         if(!countries.isEmpty()){
+        if(!SavedCheckBox.isSelected()==true){
+            SavedCheckBox.setEnabled(true);
+            SavedCheckBox.doClick();
+            SavedCheckBox.setEnabled(false);
+        }
             for(Country e : countries){
                 int size = countries.get(0).getCountryDatasetList().size();
                 if(size==1){
@@ -410,12 +424,6 @@ public class MainForm extends javax.swing.JFrame {
                             String gdpvalue = e.getCountryDatasetList().get(0).getCountryDataList().get(i).getValue();
                             GDPmodel.addRow(new Object[]{gdpyear, gdpvalue});
                         }
-                        if(i!=0){
-                            SavedCheckBox.setEnabled(true);
-                            SavedCheckBox.doClick();
-                            SavedCheckBox.setEnabled(false);
-                            Save_Button.setEnabled(false);
-                        }
                     }
                 }else if(size==2){
                     if(countries.get(0).getCountryDatasetList().get(0).getDescription().contains("GDP")){
@@ -428,12 +436,6 @@ public class MainForm extends javax.swing.JFrame {
                             String gdpvalue = e.getCountryDatasetList().get(0).getCountryDataList().get(i).getValue();
                             GDPmodel.addRow(new Object[]{gdpyear, gdpvalue});
                         }
-                        if(i!=0){
-                            SavedCheckBox.setEnabled(true);
-                            SavedCheckBox.doClick();
-                            SavedCheckBox.setEnabled(false);
-                            Save_Button.setEnabled(false);
-                        }
                     }
                 if(countries.get(0).getCountryDatasetList().get(1).getDescription().contains("Oil")){
                     oilcountry.setText(e.getCountryDatasetList().get(1).getDescription());
@@ -445,16 +447,18 @@ public class MainForm extends javax.swing.JFrame {
                         String oilvalue = e.getCountryDatasetList().get(1).getCountryDataList().get(i).getValue();
                         OILmodel.addRow(new Object[]{oilyear, oilvalue});
                     }
-                    if(i!=0){
-                        SavedCheckBox.setEnabled(true);
-                        SavedCheckBox.doClick();
-                        SavedCheckBox.setEnabled(false);
-                        Save_Button.setEnabled(false);
-                    }
                 }
             }
+        em.close();
+        emf.close();
         }
         }else{
+            if(SavedCheckBox.isSelected()==true){
+                SavedCheckBox.setEnabled(true);
+                SavedCheckBox.doClick();
+                SavedCheckBox.setEnabled(false);
+            }
+            Save_Button.setEnabled(true);
             JOptionPane.showMessageDialog(null, "Τα δεδομένα δεν υπάρχουν αποθηκευμένα στη ΒΔ."+"\n"+"Θα γίνει λήψη από τον ιστότοπο quandl.com");
             String line;  
             String splitBy = ";"; 
@@ -522,10 +526,10 @@ public class MainForm extends javax.swing.JFrame {
                     }
                 }
             } catch (IOException e) {
-        }  
-    }
+        }
     em.close();
     emf.close();
+    }
     }//GEN-LAST:event_Fetch_ButtonActionPerformed
 
     private void Save_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_ButtonActionPerformed

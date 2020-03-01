@@ -15,8 +15,11 @@ import java.io.FileReader;
 import javax.swing.JOptionPane;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
@@ -27,6 +30,7 @@ import model.CountryDataset;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.jfree.ui.RefineryUtilities;
 
 public class MainForm extends javax.swing.JFrame {
  
@@ -349,8 +353,8 @@ public class MainForm extends javax.swing.JFrame {
                 em.createNamedQuery("CountryData.deleteAll").executeUpdate();
                 em.createNamedQuery("CountryDataset.deleteAll").executeUpdate();
                 em.createNamedQuery("Country.deleteAll").executeUpdate();
-                em.createNativeQuery("ALTER TABLE Country ALTER COLUMN ID RESTART WITH 1");
-                DefaultTableModel GDPmodel = (DefaultTableModel) GPDDataTable.getModel();
+                em.createNativeQuery("ALTER TABLE Country_Data ALTER COLUMN ID RESTART WITH 1").executeUpdate();
+            DefaultTableModel GDPmodel = (DefaultTableModel) GPDDataTable.getModel();
             DefaultTableModel OILmodel = (DefaultTableModel) OilDataTable.getModel();
             gpdcountry.setText("");
             GDPStartDate.setText("");
@@ -378,9 +382,17 @@ public class MainForm extends javax.swing.JFrame {
 
     private void Plot_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Plot_ButtonActionPerformed
         String plotcountry = (String) CountrySelect.getSelectedItem();
-        PlotPanel plot = new PlotPanel(plotcountry);
+        PlotPanel plot = null;
+        try {
+            plot = new PlotPanel(plotcountry);
+        } catch (ParseException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         plot.setVisible(true);
+        RefineryUtilities.centerFrameOnScreen(plot);
+        plot.pack();
         plot.setDefaultCloseOperation(MainForm.DISPOSE_ON_CLOSE);
+   
     }//GEN-LAST:event_Plot_ButtonActionPerformed
 
     private void Fetch_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Fetch_ButtonActionPerformed
@@ -583,7 +595,7 @@ public class MainForm extends javax.swing.JFrame {
             em.flush();
             for(int i=0;i<GPDDataTable.getRowCount();i++){
                 String gpddate = (String) GPDDataTable.getValueAt(i, 0);
-                String gpdvalue = (String) GPDDataTable.getValueAt(i, 1);
+                String gpdvalue = (String) (GPDDataTable.getValueAt(i, 1));
                 CountryData cdatagdp = new CountryData(null, gpddate, gpdvalue);
                 cdatagdp.setDataset(cdatasetgdp);
                 em.persist(cdatagdp);

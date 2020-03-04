@@ -7,14 +7,11 @@ package GuiDesign;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -29,12 +26,13 @@ import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.labels.StandardXYToolTipGenerator;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.time.Year;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.util.ShapeUtilities;
 
 /**
  *
@@ -63,26 +61,24 @@ public class PlotPanel extends javax.swing.JFrame {
         List<Country> countries = fetchdata.getResultList();
         List<CountryDataset> ctrySet = new ArrayList();
 
-//        System.out.println("ÂñÝèçêáí "+ countries.size()+" ÷þñåò!");
+
         if (!countries.isEmpty()) {
             countries.get(0).getIsoCode();
-//            System.out.println("Country ISO Code is = "+countries.get(0).getIsoCode());
 
             for (int i = 0; i < countries.get(0).getCountryDatasetList().size(); i++) {
-//            System.out.println("Country Dataset is = "+countries.get(0).getCountryDatasetList().get(i));
+
                 ctrySet.add(countries.get(0).getCountryDatasetList().get(i));
-//            System.out.println("Country Dataset is = "+ctrySet.get(i).getName());
+
             }
             for (int i = 0; i < ctrySet.size(); i++) {
-                System.out.println("country set ID = " + ctrySet.get(i).getDatasetId());
+
                 if (ctrySet.get(i).getDescription().contains("GDP")) {
-//        System.out.println("Size of DataList table for GDP = "+ctrySet.get(i).getCountryDataList().size());
+
                     for (int j = 0; j < ctrySet.get(i).getCountryDataList().size(); j++) {
                         GDPData.add(ctrySet.get(i).getCountryDataList().get(j));
                     }
                 }
                 if (ctrySet.get(i).getDescription().contains("Oil")) {
-//        System.out.println("Size of DataList table for OIL = "+ctrySet.get(i).getCountryDataList().size());                     
                     for (int j = 0; j < ctrySet.get(i).getCountryDataList().size(); j++) {
                         OILData.add(ctrySet.get(i).getCountryDataList().get(j));
                     }
@@ -110,31 +106,30 @@ public class PlotPanel extends javax.swing.JFrame {
         plot.setRangeAxis(1, axis2);
         plot.setDataset(1, createDataset2());
         plot.mapDatasetToRangeAxis(1, 1);
+
         XYItemRenderer renderer = plot.getRenderer();
         renderer.setBaseToolTipGenerator(StandardXYToolTipGenerator.getTimeSeriesInstance());
-        if (renderer instanceof StandardXYItemRenderer) {
-            StandardXYItemRenderer rr = (StandardXYItemRenderer) renderer;
-            rr.setPlotImages(true); // setPlotShapes(true);
-            rr.setPlotLines(true);  // setShapesFilled(true);
-        }
 
-        StandardXYItemRenderer renderer2 = new StandardXYItemRenderer();
+        XYLineAndShapeRenderer renderer1 = new XYLineAndShapeRenderer(true, true);
+        renderer1.setSeriesShape(0, ShapeUtilities.createDiamond(2));
+        renderer1.setSeriesShapesFilled(0, true);
+        plot.setRenderer(0, renderer1);
+
+        XYLineAndShapeRenderer renderer2 = new XYLineAndShapeRenderer(true, true);
         renderer2.setSeriesPaint(0, Color.black);
+        renderer2.setSeriesShape(0, ShapeUtilities.createDiamond(2));
+        renderer2.setSeriesShapesFilled(0, true);
 
-        renderer2.setPlotImages(true);
-        renderer2.setPlotLines(true);
         plot.setRenderer(1, renderer2);
         DateAxis axis = (DateAxis) plot.getDomainAxis();
         axis.setDateFormatOverride(new SimpleDateFormat("yyyy"));
-//      axis.setLowerBound(0.0); 
-//      axis.setUpperBound(24.0);
-//      axis.setAutoRange(true);
-//      axis.setAxisLineVisible(false);
-//      axis.setRange(0.0,240000000000.0);
-//      axis.setLowerMargin(0.0);
-//      axis.setUpperMargin(240000000000.0);
+
+        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+        DecimalFormat df = new DecimalFormat("#.#");
+        rangeAxis.setNumberFormatOverride(df);
+        axis2.setNumberFormatOverride(df);
         ChartPanel chartPanel = new ChartPanel(chart);
-        //  chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
+
         setContentPane(chartPanel);
 
         ChartPanel FinalPanel = new ChartPanel(chart);
@@ -154,16 +149,9 @@ public class PlotPanel extends javax.swing.JFrame {
         for (CountryData g : GDPData) {
             Number v = df.parse(g.getValue());
             int y = Integer.parseInt(g.getDataYear());
-            s1.add(new Year(y),v);
+            s1.add(new Year(y), v);
         }
-//                       Double.parseDouble(g.getValue())
-            //                           df.format(g.getValue())
 
-            //   Integer.parseInt(g.getValue()));
-        
-//           System.out.println("parse Integer = "+Integer.parseInt("180217594600.0"));
-//           System.out.println("parse Float = "+Float.parseFloat("180217594600.0"));
-//           System.out.println("parse Double = "+Double.parseDouble("180217594600.0"));
         TimeSeriesCollection dataset = new TimeSeriesCollection();
         dataset.addSeries(s1);
         return dataset;
@@ -171,18 +159,16 @@ public class PlotPanel extends javax.swing.JFrame {
 
     private XYDataset createDataset2() throws ParseException {
         DecimalFormat df = new DecimalFormat("#.##");
-        
+
         TimeSeries s2 = new TimeSeries("Oil Consumption");
 
         for (CountryData g : OILData) {
             int y = Integer.parseInt(g.getDataYear());
             Number v = df.parse(g.getValue());
-            s2.add(new Year(y),v);
-//                       
+            s2.add(new Year(y), v);
+
         }
-//           System.out.println("parse Float = "+Float.parseFloat("15.8073384323"));
-//           System.out.println("parse Long = "+Long.parseLong("15.8073384323"));
-//           System.out.println("parse Double = "+Double.parseDouble("15.8073384323"));
+
         TimeSeriesCollection dataset = new TimeSeriesCollection();
         dataset.addSeries(s2);
         return dataset;

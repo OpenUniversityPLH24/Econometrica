@@ -5,12 +5,9 @@
  */
 package econometrica_priv;
 
-import Connections.DBManager;
-import econometrica_GUI.MainFrame;
-import java.sql.SQLException;
+import econometrica_GUI.MainForm;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
-import javax.persistence.EntityManager;
-import javax.swing.JFrame;
 import org.jfree.ui.RefineryUtilities;
 
 /**
@@ -20,33 +17,19 @@ import org.jfree.ui.RefineryUtilities;
 public class Econometrica_priv {
 
 
-    final String msg = new String();
-    protected static EntityManager em;
-    protected static DBManager dbm;
-    
-    /**
-     * @param args the command line arguments
-     * @throws java.text.ParseException
-     */
-    public static void main(String[] args) throws ParseException, SQLException {
-        // TODO code application logic here
-    
-        // Διαδικασία Σύνδεσης με την Βάση Δεδομένων για όλη 
-        // την διάρκεια εκτέλεσης της Εφαρμογής
-//    if (em == null)
-//        {
-//            //ΚΛΗΣΗ FINAL CLASS DbConnectHelper ΓΙΑ ΣΥΝΔΕΣΗ ΣΤΗ ΒΑΣΗ
-//            //ΚΑΙ ΔΗΜΙΟΥΡΓΙΑ entity factory ΚΑΙ entity manager
-//            DBManager.connect();
-//            em = DBManager.getEm();
-//        }
-
-    MainFrame mf = new MainFrame();
-    mf.setVisible(true);
-    mf.pack();
-    RefineryUtilities.centerFrameOnScreen(mf);
-    mf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
-
+   public static void main(String[] args) throws ParseException, FileNotFoundException {
+        
+        
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                //εμφάνιση του κεντρικού μενου
+                MainForm mainForm = new MainForm();
+                RefineryUtilities.centerFrameOnScreen(mainForm);
+                mainForm.setVisible(true);
+            }
+        });
     }
 }
 

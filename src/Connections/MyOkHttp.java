@@ -5,6 +5,7 @@
  */
 package Connections;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import javax.swing.SwingWorker;
 import okhttp3.OkHttpClient;
@@ -29,9 +30,8 @@ public class MyOkHttp extends SwingWorker {
 // ind is indicator for Oil or GDP Data retreive
 // for Oil data ind = "OIL", for GRD data ind = "GDP"
     
-    public String MyOkHttp (String cntr, String ind) {
+    public void MyOkHttp (String cntr, String ind) {
     String urlToCall = "";
-    String results = "";
     if (ind == "GDP") {
            urlToCall = url1 + cntr + url2 + key;
     }
@@ -45,13 +45,16 @@ public class MyOkHttp extends SwingWorker {
     
     try (Response response = client.newCall(request).execute()) {
          if (response.isSuccessful() && response.body() != null) {
-             results = response.body().string();
-//             System.out.println(results);
+               Gson gson = new Gson();
+               JsonReader jsonReader = gson.fromJson(response.body().string(), JsonReader.class);
+               
+//             
+            
             }
         } catch (IOException e) {
             e.printStackTrace();
     }
-    return results;
+    
     }
 
     @Override

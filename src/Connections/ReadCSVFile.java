@@ -81,6 +81,11 @@ private ArrayList Number; // Country number
         return this.Number;
     }
     
+     public String getNumber(int i) {
+       String Number = this.Number.get(i).toString();
+       return Number; 
+    }
+    
     public int getCountryID (String name) {
         int num = -1;
         for (int i=0; i< this.Name.size(); i++) {
@@ -154,4 +159,6 @@ try
 	System.out.println("Unexpected I/O error occured.");
   }      
  }
+
+   
 }

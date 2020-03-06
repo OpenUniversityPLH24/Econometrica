@@ -32,28 +32,12 @@ public static EntityManager em ;
     
 //    public static void main(String[] args) {
     public static void JPA() {
-//        DBManager dbm = new DBManager();
-//        dbm.DBManager();
-        em = DBManager.getEm();
-//        em.getTransaction().begin();
-        
-//        EntityManager em = new EntityManager();
 //       
-//        
-//        EntityManagerFactory emf = 
-//            Persistence.createEntityManagerFactory("JPATestPU");
-//        em = emf.createEntityManager();
-//        // από εδώ αρχίζουν τα transactions
-//        
-//        removeCustomer(10);
-//       
-//        em.close();
-//        emf.close();
     }
     
     public static Country retreiveCountry(String name){
     
-    em = DBManager.getEm();
+    
     Country country = new Country();
     
         try {
